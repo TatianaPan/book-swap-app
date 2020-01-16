@@ -18,7 +18,7 @@ test:
   <<: *default
   database: book_swap_test
 
- #TODO configure to production 
+ #TODO configure to production
 # production:
 #   <<: *default
 #   database: book_swap_production

@@ -1,6 +1,6 @@
 # BOOK SWAP APP
 
-![](https://github.com/TatianaPan/book-swap-app/.github/workflows/main.yml/badge.svg)
+![](https://github.com/TatianaPan/book-swap-app/workflows/CI/badge.svg)
 
 Things you may want to cover:
 

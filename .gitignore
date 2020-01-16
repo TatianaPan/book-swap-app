@@ -37,5 +37,8 @@ yarn-debug.log*
 
 .idea/
 
+# Ignore environments variables
+.env
+
 # Ignore database configuration
-config/database.yml
+#config/database.yml

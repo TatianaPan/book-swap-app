@@ -12,7 +12,7 @@ blocks:
         - name: book-swap-app
       env_vars:
         - name: HEROKU_REMOTE
-          value: https://git.heroku.com/book-swap-app.git
+          value: https://git.heroku.com/book-swap-staging.git
       jobs:
       - name: Push code
         commands:

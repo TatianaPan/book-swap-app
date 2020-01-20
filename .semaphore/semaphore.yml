@@ -1,0 +1,19 @@
+version: v1.0
+
+name: Book Swap
+
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+blocks:
+  - name: Setup
+    task:
+      env_vars:
+        - name: RAILS_ENV
+          value: test
+      jobs:
+        - name: bundle
+          commands:
+          - checkout

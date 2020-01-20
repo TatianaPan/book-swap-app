@@ -51,3 +51,7 @@ blocks:
         - name: System tests
           commands:
             - bin/rails test:system
+
+promotions:
+  - name: Deploy to Heroku staging
+    pipeline_file: heroku-staging.yml

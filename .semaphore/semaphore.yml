@@ -18,11 +18,10 @@ blocks:
           commands:
             - checkout
             - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
-            # - cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-master
-            # - cd /home/semaphore/.rbenv/plugins/ruby-build && git pull && cd -
-            # - sem-version ruby $(cat .ruby-version)
-            # - gem install bundler:2.0.2
-            # - bundle install --deployment -j 4 --path vendor/bundle
-            # - yarn install
-            # - cache store gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock) vendor/bundle
-            # - cache store node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock) node_modules
+            - cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-master
+            - cd /home/semaphore/.rbenv/plugins/ruby-build && git pull && cd -
+            - sem-version ruby $(cat .ruby-version)
+            - bundle install --deployment -j 4 --path vendor/bundle
+            - yarn install
+            - cache store gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock) vendor/bundle
+            - cache store node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock) node_modules

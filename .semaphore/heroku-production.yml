@@ -1,5 +1,5 @@
 version: v1.0
-name: Heroku deployment
+name: Heroku deployment to production
 agent:
   machine:
     type: e1-standard-2
@@ -12,7 +12,7 @@ blocks:
         - name: book-swap-app
       env_vars:
         - name: HEROKU_REMOTE
-          value: https://git.heroku.com/book-swap-staging.git
+          value: https://git.heroku.com/book-swap-app.git
       jobs:
       - name: Push code
         commands:
@@ -23,7 +23,3 @@ blocks:
           - git config --global url.ssh://git@heroku.com/.insteadOf https://git.heroku.com/
           - git remote add heroku $HEROKU_REMOTE
           - git push heroku -f $SEMAPHORE_GIT_BRANCH:master
-
-promotions:
-  - name: Deploy to Heroku production
-    pipeline_file: heroku-production.yml

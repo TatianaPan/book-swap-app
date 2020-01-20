@@ -55,3 +55,4 @@ blocks:
 promotions:
   - name: Deploy to Heroku staging
     pipeline_file: heroku-staging.yml
+

@@ -52,6 +52,10 @@ blocks:
           commands:
             - bin/rails test:system
 
+        - name: Rubocop
+          commands:
+            - bundle exec rubocop
+
 promotions:
   - name: Deploy to Heroku staging
     pipeline_file: heroku-staging.yml

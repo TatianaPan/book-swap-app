@@ -16,4 +16,44 @@ blocks:
       jobs:
         - name: bundle
           commands:
+            - checkout
+            - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
+            - cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-master
+            - cd /home/semaphore/.rbenv/plugins/ruby-build && git pull && cd -
+            - sem-version ruby $(cat .ruby-version)
+            - bundle install --deployment -j 4 --path vendor/bundle
+            - yarn install
+            - cache store gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock) vendor/bundle
+            - cache store node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock) node_modules
+
+  - name: Tests
+    task:
+      env_vars:
+        - name: RAILS_ENV
+          value: test
+        - name: DATABASE_URL
+          value: postgresql://postgres@localhost/test?encoding=utf8
+      prologue:
+        commands:
           - checkout
+          - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
+          - cache restore node-modules-$SEMAPHORE_GIT_BRANCH-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-master
+          - sem-service start postgres
+          - cd /home/semaphore/.rbenv/plugins/ruby-build && git pull && cd -
+          - sem-version ruby $(cat .ruby-version)
+          - bundle install --deployment --path vendor/bundle
+          - bin/rails db:setup
+      jobs:
+        - name: Unit tests
+          commands:
+            - bin/rails test
+
+        - name: System tests
+          commands:
+            - bin/rails test:system
+
+promotions:
+  - name: Deploy to Heroku staging
+    pipeline_file: heroku-staging.yml
+    auto_promote:
+      when: "result = 'passed' and branch ='master'"

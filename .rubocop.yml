@@ -8,6 +8,8 @@ AllCops:
     - 'node_modules/**/*'
     - 'db/schema.rb'
     - 'tmp/**/*'
+    - 'config/initializers/devise.rb'
+    - 'db/migrate/*'
 
 Rails:
   Enabled: true

@@ -10,6 +10,8 @@ AllCops:
     - 'tmp/**/*'
     - 'config/initializers/devise.rb'
     - 'db/migrate/*'
+    - 'app/models/user.rb'
+    - 'app/controllers/users/omniauth_callbacks_controller.rb'
 
 Rails:
   Enabled: true

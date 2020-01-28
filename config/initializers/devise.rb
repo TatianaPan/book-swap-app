@@ -266,6 +266,12 @@ Devise.setup do |config|
     config.omniauth :google_oauth2, client_id, client_secret,  {}
   end
 
+  if RAILS_ENV='development' || RAILS_ENV='test'
+    client_id = Rails.application.credentials[:google_omniauth][:client_id]
+    client_secret = Rails.application.credentials[:google_omniauth][:client_secret]
+    config.omniauth :google_oauth2, client_id, client_secret,  {}
+  end
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

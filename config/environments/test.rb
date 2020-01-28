@@ -45,4 +45,20 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
+
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:google_omniauth] = OmniAuth::AuthHash.new(
+    provider: 'google_oauth2',
+    uid: '100000000000000000000',
+    info: {
+      name: 'John Smith',
+      email: 'john@example.com',
+      first_name: 'John',
+      last_name: 'Smith',
+      image: 'https://lh4.googleusercontent.com/photo.jpg',
+      urls: {
+        google: 'https://plus.google.com/+JohnSmith'
+      }
+    }
+  )
 end

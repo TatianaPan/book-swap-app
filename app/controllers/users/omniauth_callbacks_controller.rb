@@ -1,7 +1,7 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # rubocop: disable Metrics/AbcSize
   def google_oauth2
-    @user = User.from_omniauth(request.env['omniauth.auth'])
+    @user = User.create_if_not_exist(request.env['omniauth.auth'].info['email'])
 
     if @user.persisted?
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'

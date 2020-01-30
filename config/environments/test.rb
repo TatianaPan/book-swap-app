@@ -59,6 +59,10 @@ Rails.application.configure do
       urls: {
         google: 'https://plus.google.com/+JohnSmith'
       }
+    },
+    credentials: {
+      token: 'mytoken',
+      refresh_token: 'mytoken'
     }
   )
 end

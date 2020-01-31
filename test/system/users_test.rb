@@ -3,10 +3,6 @@ require 'application_system_test_case'
 class UsersTest < ApplicationSystemTestCase
   include Devise::Test::IntegrationHelpers
 
-  setup do
-    Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:google_omniauth]
-  end
-
   test 'user can sign in' do
     visit new_user_session_path
 

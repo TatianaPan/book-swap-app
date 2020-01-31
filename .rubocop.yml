@@ -8,6 +8,7 @@ AllCops:
     - 'node_modules/**/*'
     - 'db/schema.rb'
     - 'tmp/**/*'
+    - 'config/initializers/devise.rb'
 
 Rails:
   Enabled: true

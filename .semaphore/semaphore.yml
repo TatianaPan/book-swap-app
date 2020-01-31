@@ -28,6 +28,8 @@ blocks:
 
   - name: Tests
     task:
+      secrets:
+        - name: book-swap-app
       env_vars:
         - name: RAILS_ENV
           value: test

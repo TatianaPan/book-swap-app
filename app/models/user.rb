@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
 
+  has_many :books, dependent: :destroy
+
   def self.create_if_not_exist(email)
     user = User.find_by(email: email)
     return user if user.present?

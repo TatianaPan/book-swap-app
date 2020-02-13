@@ -20,7 +20,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     book = books(:becoming)
     assert_difference 'Book.count', 1 do
       post books_url, params: { book: { title: book.title, author: book.author, user_id: book.user_id,
-                                        year: book.year, status: book.status, isbn13: book.isbn13,
+                                        release_date: book.release_date, status: book.status, isbn13: book.isbn13,
                                         isbn10: book.isbn10, description: '' } }
     end
     assert_redirected_to books_url

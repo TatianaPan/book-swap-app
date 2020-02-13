@@ -1,1 +1,15 @@
-%h1 The book list is coming...
+%h1 My library
+
+%table.table.my-books
+  %thead
+    %tr
+      %th Author
+      %th Title
+      %th Status
+
+  %tbody
+    - @books.each do |book|
+      %tr
+        %td= book.author
+        %td= link_to book.title, book_path(book)
+        %td= book.status

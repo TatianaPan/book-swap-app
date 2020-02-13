@@ -6,7 +6,7 @@ class CreateBooks < ActiveRecord::Migration[6.0]
       t.text :description
       t.string :isbn10, limit: 10
       t.string :isbn13, limit: 13
-      t.date :year
+      t.date :release_date
       t.string :status, default: 'available'
       t.references :user, foreign_key: true
       t.timestamps

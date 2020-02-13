@@ -3,7 +3,7 @@ becoming:
   author: 'Michelle Obama'
   isbn10: '1524763152'
   isbn13: '9781524763152'
-  year: 2018-02-01
+  release_date: 2018-02-01
   status: 'available'
   user_id: 1
 
@@ -12,6 +12,6 @@ harry_potter:
   author: 'J.K. Rowling'
   isbn10: '1408810549'
   isbn13: '9781408810545'
-  year: 2010-02-01
+  release_date: 2010-02-01
   status: 'available'
   user_id: 1

@@ -6,7 +6,7 @@
     = f.input :title, class: 'form-control'
     = f.input :author, class: 'form-control'
     = f.input :description,  as: :text, class: 'form-control'
-    = f.input :year, label: 'Published Date', as: :date, start_year: Date.today.year - 60, end_year: Date.today.year, discard_day: true, discard_month: true, class: 'form-control'
+    = f.input :release_date, label: 'Published Date', as: :date, start_year: Date.today.year - 60, end_year: Date.today.year, discard_day: true, discard_month: true, class: 'form-control'
     = f.input :isbn13, label: 'ISBN 13', placeholder: 'Numbers only'
     = f.input :isbn10, label: 'ISBN 10', placeholder: 'Numbers only'
     = f.input :status, collection: ['available', 'reserved', 'borrowed']

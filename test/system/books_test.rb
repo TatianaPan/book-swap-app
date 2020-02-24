@@ -20,7 +20,7 @@ class UsersTest < ApplicationSystemTestCase
     sign_in users(:schmidt)
     visit new_book_path
 
-    fill_in 'Title', with: "Harry Potter and the Philosopher's Stone"
+    fill_in 'Title', with: 'Harry Potter and the Chamber of Secrets'
     fill_in 'Author', with: 'J.K.Rowling'
     fill_in 'ISBN 13', with: '9781408810545'
     select('2010', from: 'Published Date')

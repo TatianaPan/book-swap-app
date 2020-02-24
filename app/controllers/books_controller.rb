@@ -14,7 +14,7 @@ class BooksController < ApplicationController
   def edit; end
 
   def create
-    @book = Book.new(book_params)
+    @book = current_user.books.create(book_params)
 
     if @book.save
       redirect_to books_path, notice: 'Book has been added successfully.'

@@ -1,4 +1,5 @@
 class Book < ApplicationRecord
+  belongs_to :user
   validates :isbn10, length: { is: 10 },
                      numericality: { only_integer: true, greater_than: 0 },
                      allow_blank: true

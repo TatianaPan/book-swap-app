@@ -5,7 +5,7 @@ becoming:
   isbn13: '9781524763152'
   release_date: 2018-02-01
   status: 'available'
-  user_id: 1
+  user: schmidt
 
 harry_potter:
   title: "Harry Potter and the Philosopher's Stone"
@@ -14,4 +14,4 @@ harry_potter:
   isbn13: '9781408810545'
   release_date: 2010-02-01
   status: 'available'
-  user_id: 1
+  user: schmidt

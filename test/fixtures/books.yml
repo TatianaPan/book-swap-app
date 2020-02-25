@@ -1,0 +1,17 @@
+becoming:
+  title: 'Becoming'
+  author: 'Michelle Obama'
+  isbn10: '1524763152'
+  isbn13: '9781524763152'
+  release_date: 2018-02-01
+  status: 'available'
+  user: schmidt
+
+harry_potter:
+  title: "Harry Potter and the Philosopher's Stone"
+  author: 'J.K. Rowling'
+  isbn10: '1408810549'
+  isbn13: '9781408810545'
+  release_date: 2010-02-01
+  status: 'available'
+  user: schmidt

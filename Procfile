@@ -1,2 +1,2 @@
-release: bin/rake db:migrate db:seed
+release: bin/rake db:migrate
 web: bin/rails server -p $PORT -e $RAILS_ENV

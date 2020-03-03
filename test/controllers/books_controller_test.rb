@@ -4,55 +4,62 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   test 'GET/books' do
-    sign_in users(:schmidt)
-    get books_url
+    user = users(:schmidt)
+    sign_in user
+    get user_books_url(user)
     assert_response :success
   end
 
-  test 'GET/books/new' do
-    sign_in users(:schmidt)
-    get new_book_url
+  test 'GET/users/:user_id/books/new' do
+    user = users(:schmidt)
+    sign_in user
+    get new_user_book_url(user)
     assert_response :success
   end
 
   test 'POST/books' do
-    sign_in users(:schmidt)
+    user = users(:schmidt)
+    sign_in user
     book = books(:becoming)
     assert_difference 'Book.count', 1 do
-      post books_url, params: { book: { title: book.title, author: book.author, user_id: book.user_id,
-                                        release_date: book.release_date, status: book.status, isbn13: book.isbn13,
-                                        isbn10: book.isbn10, description: '' } }
+      post user_books_url(user), params: { book: { title: book.title, author: book.author, user_id: book.user_id,
+                                                   release_date: book.release_date, status: book.status,
+                                                   isbn13: book.isbn13,
+                                                   isbn10: book.isbn10, description: '' } }
     end
-    assert_redirected_to books_url
+    assert_redirected_to user_books_url
   end
 
   test 'GET/books/:id' do
     sign_in users(:schmidt)
     book = books(:becoming)
-    get book_url(book)
+    get user_book_url(book.user, book)
     assert_response :success
   end
 
-  test 'GET/books/:id/edit' do
-    sign_in users(:schmidt)
+  test 'GET/users/:user_id/books/:id/edit' do
+    user = users(:schmidt)
+    sign_in user
     book = books(:becoming)
-    get edit_book_url(book)
+    get edit_user_book_url(user, book)
     assert_response :success
   end
 
-  test 'PATCH/PUT/books/:id' do
-    sign_in users(:schmidt)
+  test 'PATCH/PUT/users/:user_id/books/:id' do
+    user = users(:schmidt)
+    sign_in user
     book = books(:becoming)
-    patch book_url(book), params: { book: { status: 'reserved' } }
-    assert_redirected_to book_url(book)
+    patch user_book_url(user, book), params: { book: { status: 'reserved' } }
+    assert_redirected_to user_book_url(book.user, book)
     assert_equal 'reserved', book.reload.status
   end
 
   test 'DELETE/books/:id' do
-    sign_in users(:schmidt)
+    user = users(:schmidt)
+    sign_in user
     book = books(:becoming)
     assert_difference 'Book.count', -1 do
-      delete book_url(book)
+      delete user_book_url(user, book)
     end
   end
 end

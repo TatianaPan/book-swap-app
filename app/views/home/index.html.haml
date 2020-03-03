@@ -1,8 +1,8 @@
 %h1 Welcome to Book Swap App
-= link_to 'Add new book', new_book_path
+= link_to 'Add new book', new_user_book_path(@user)
 %br
 
-= link_to 'My library', books_path
+= link_to 'My library', user_books_path(@user)
 %br
 
 = link_to 'Sign out', destroy_user_session_path, method: :delete

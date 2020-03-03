@@ -1,6 +1,8 @@
 schmidt:
   email: 'm.schmidt@gmail.com'
   encrypted_password: <%= User.new.send(:password_digest, '56kogakhdgTR') %>
+  first_name: 'Michael'
+  last_name: 'Schmidt'
 
 hoffman:
   email: 'clara.hoffman@mail.ru'

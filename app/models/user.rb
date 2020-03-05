@@ -10,11 +10,14 @@ class User < ApplicationRecord
   validates :first_name, length: { maximum: 25 }
   validates :last_name, length: { maximum: 25 }
 
-  def self.create_if_not_exist(email)
-    user = User.find_by(email: email)
+  def self.create_if_not_exist(data)
+    user = User.find_by(email: data[:email])
     return user if user.present?
 
-    User.create(email: email, password: Devise.friendly_token[0, 20])
+    User.create(email: data[:email],
+                password: Devise.friendly_token[0, 20],
+                first_name: data[:first_name],
+                last_name: data[:last_name])
   end
 
   def decorate

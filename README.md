@@ -2,22 +2,35 @@
 
 [![Semaphore Pipeline](https://tatiana-panf.semaphoreci.com/badges/book-swap-app.svg?key=99efe26b-65de-4cb8-8c78-4b85480d5072)](https://tatiana-panf.semaphoreci.com/projects/book-swap-app)
 
-Things you may want to cover:
+## Environments
 
-* Ruby version
+* Staging: [book-swap-app-staging.herokuapp.com](https://book-swap-app-staging.herokuapp.com/)
+* Production: [book-swap-app.herokuapp.com](https://book-swap-app.herokuapp.com/)
 
-* System dependencies
+## Context
 
-* Configuration
+An application that allows users to create lists of their books (My library), to reserve books from other users and then to exchange these books.
 
-* Database creation
+## Project setup
 
-* Database initialization
+Make sure you have Postgres server v12 running locally, either installed through your favourite package manager or as a docker container:
+```
+docker run --detach --name postgres-12 -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword postgres:12
 
-* How to run the test suite
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+To setup your local environment:
 
-* Deployment instructions
+```bash
+# this includes the postgres client (required for gem pg)
+brew install postgresql
 
-* ...
+# includes `bundle install` and `db:setup`
+bin/setup
+
+bin/rails server
+```
+## Deployment
+
+Deployment is automated through Semaphore promotions. Every successful push on master is automatically deployed on Staging.
+

@@ -1,0 +1,15 @@
+%h1 Users
+
+%table.table.all-users
+  %thead
+    %tr
+      %th Name
+      %th Email
+      %th Locations
+
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.decorate.display_full_name
+        %td= user.email
+        %td= user.locations

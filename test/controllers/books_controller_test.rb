@@ -30,7 +30,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to user_books_url
   end
 
-  test 'GET/books/:id' do
+  test 'GET/users/:user_id/books/:id' do
     sign_in users(:schmidt)
     book = books(:becoming)
     get user_book_url(book.user, book)

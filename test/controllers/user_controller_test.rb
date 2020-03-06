@@ -5,7 +5,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'GET/users' do
     sign_in users(:schmidt)
-    get all_users_path
+    get users_path
     assert_response :success
   end
 
@@ -26,9 +26,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test 'PATCH/PUT/users/:id' do
     user = users(:schmidt)
     sign_in user
-    patch user_url(user), params: { user: { locations: 'Adliswill' } }
+    assert_changes 'user.locations', to: 'Adliswill' do
+      patch user_url(user), params: { user: { locations: 'Adliswill' } }
+      user.reload.locations
+    end
     assert_redirected_to user_url(user)
-    assert_equal 'Adliswill', user.reload.locations
+    assert_equal 'Your profile has been updated.', flash[:notice]
   end
 
   test 'DELETE/users/:id' do
@@ -42,7 +45,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test 'DELETE/users/:id with restriction error' do
     user = users(:schmidt)
     sign_in user
-    delete user_url(user)
+    assert_no_difference 'User.count' do
+      delete user_url(user)
+    end
     assert_redirected_to user_url(user)
   end
 end

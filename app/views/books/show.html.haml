@@ -6,5 +6,5 @@
 
 %p= @book.status
 
-= link_to 'Edit', edit_user_book_path(@user, @book), class: 'btn btn-primary'
-= link_to 'Delete', user_book_path(@user, @book), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary'
+= link_to 'Edit', edit_user_book_path(current_user, @book), class: 'btn btn-primary'
+= link_to 'Delete', user_book_path(current_user, @book), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary'

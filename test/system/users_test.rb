@@ -40,7 +40,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_selector 'h1', text: 'Users'
 
     within 'table.all-users' do
-      assert_selector 'tbody tr'
+      assert_selector 'tbody tr:nth-child(1) td:nth-child(1)', text: 'Michael Schmidt'
     end
   end
 
@@ -65,7 +65,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_selector '.notice', text: 'Your profile has been updated.'
   end
 
-  test 'user can delete his profile if he has now associated records' do
+  test 'user can delete his profile if he has no associated records' do
     user = users(:hoffman)
     sign_in user
 

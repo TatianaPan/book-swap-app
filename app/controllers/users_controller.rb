@@ -9,7 +9,6 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    @user = current_user
     if @user.update(user_params)
       redirect_to user_path(@user), notice: 'Your profile has been updated.'
     else
@@ -30,7 +29,7 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = current_user
+    @user = User.find_by(id: params[:id])
   end
 
   def user_params

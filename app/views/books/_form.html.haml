@@ -1,4 +1,4 @@
-= simple_form_for [current_user, @book] do |f|
+= simple_form_for [@user, @book] do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
@@ -13,5 +13,5 @@
 
   .form-group
     = f.submit 'Save', class: 'btn btn-primary'
-    - cancel_path = @book.new_record? ? user_books_path(current_user) : user_book_path(current_user, @book)
+    - cancel_path = @book.new_record? ? user_books_path(@user) : user_book_path(@user, @book)
     = link_to 'Cancel', cancel_path, class: 'btn btn-primary'

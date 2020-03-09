@@ -1,0 +1,16 @@
+= simple_form_for @user do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-group
+    = f.input :email, disabled: true, hint: "You cannot change your email.", class: 'form-control'
+    = f.input :first_name, class: 'form-control'
+    = f.input :last_name, class: 'form-control'
+    = f.input :locations,  as: :text, class: 'form-control'
+
+  .form-group
+    = f.submit 'Save', class: 'btn btn-primary'
+    - cancel_path = @user.new_record? ? user_path(@user) : user_path(@user)
+    = link_to 'Cancel', cancel_path, class: 'btn btn-primary'
+
+  = link_to 'Delete', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'

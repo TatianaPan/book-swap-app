@@ -17,8 +17,9 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'user can add new book' do
-    sign_in users(:schmidt)
-    visit new_book_path
+    user = users(:schmidt)
+    sign_in user
+    visit new_user_book_path(user)
 
     fill_in 'Title', with: 'Harry Potter and the Chamber of Secrets'
     fill_in 'Author', with: 'J.K.Rowling'
@@ -31,9 +32,10 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'user can edit book info' do
-    sign_in users(:schmidt)
+    user = users(:schmidt)
+    sign_in user
 
-    visit books_path
+    visit user_books_path(user)
     click_on 'Becoming'
 
     assert_selector 'h1', text: 'Becoming'
@@ -48,10 +50,11 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'user can delete a book' do
-    sign_in users(:schmidt)
+    user = users(:schmidt)
+    sign_in user
     book = books(:becoming)
 
-    visit book_path(book)
+    visit user_book_path(user, book)
 
     accept_confirm do
       click_link('Delete')

@@ -11,7 +11,7 @@
   %tbody
     - @users.each do |user|
       %tr
-        %td= user.decorate.display_full_name
+        %td= link_to user.decorate.display_full_name, user_path(user)
         %td= user.email
         %td= user.locations
         %td= link_to 'Library', user_books_path(user)

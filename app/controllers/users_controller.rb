@@ -6,9 +6,12 @@ class UsersController < ApplicationController
 
   def show; end
 
-  def edit; end
+  def edit
+    authorize @user
+  end
 
   def update
+    authorize @user
     if @user.update(user_params)
       redirect_to user_path(@user), notice: 'Your profile has been updated.'
     else
@@ -17,6 +20,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    authorize @user
     @user.destroy
     redirect_to new_user_registration_path
     flash[:alert] = 'Your account has been deleted.'

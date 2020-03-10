@@ -90,4 +90,17 @@ class UsersTest < ApplicationSystemTestCase
 
     assert_selector '.alert', text: 'You cannot delete your account.'
   end
+
+  test ' user cannot see the button EDIT for other user profile' do
+    user = users(:hoffman)
+    sign_in user
+
+    visit users_path
+
+    within 'table.all-users' do
+      click_on 'Michael Schmidt'
+    end
+
+    assert_no_selector 'a', text: 'Edit'
+  end
 end

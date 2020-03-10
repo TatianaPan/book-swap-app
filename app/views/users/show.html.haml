@@ -1,4 +1,7 @@
-%h1 My profile
+- if @user == current_user
+  %h1 My profile
+- else
+  %h1= "#{@user.decorate.display_full_name}'s  profile"
 
 %h5 Email:
 %p= @user.email
@@ -9,4 +12,8 @@
 %h5 Locations:
 %p= @user.locations
 
-= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary'
+%h5= link_to 'Library', user_books_path(@user)
+%br
+
+- if policy(@user).edit?
+  = link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary'

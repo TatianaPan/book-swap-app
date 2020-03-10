@@ -62,4 +62,16 @@ class UsersTest < ApplicationSystemTestCase
 
     assert_selector '.notice', text: 'Book has been deleted.'
   end
+
+  test "user do not see EDIT and DELETE button on other user's show book page" do
+    user = users(:hoffman)
+    book = books(:becoming)
+
+    sign_in user
+
+    visit user_book_path(book.user, book)
+
+    assert_no_selector 'a', text: 'Edit'
+    assert_no_selector 'a', text: 'Delete'
+  end
 end

@@ -6,6 +6,7 @@
       %th Name
       %th Email
       %th Locations
+      %th Books
 
   %tbody
     - @users.each do |user|
@@ -13,3 +14,4 @@
         %td= user.decorate.display_full_name
         %td= user.email
         %td= user.locations
+        %td= link_to 'Library', user_books_path(user)

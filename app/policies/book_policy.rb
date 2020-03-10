@@ -1,4 +1,11 @@
-class BookPolicy < ApplicationPolicy
+class BookPolicy
+  attr_reader :user, :record
+
+  def initialize(user, record)
+    @user = user
+    @record = record
+  end
+
   def new?
     record.user == user
   end

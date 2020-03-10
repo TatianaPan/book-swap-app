@@ -20,7 +20,7 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book = @user.books.create(book_params)
+    @book = @user.books.new(book_params)
     authorize @book
 
     if @book.save
@@ -42,6 +42,7 @@ class BooksController < ApplicationController
   def destroy
     authorize @book
     @book.destroy
+
     redirect_to user_books_path(@user), notice: 'Book has been deleted.'
   end
 
@@ -52,7 +53,7 @@ class BooksController < ApplicationController
   end
 
   def set_book
-    @book = current_user.books.find_by(id: params[:id])
+    @book = Book.find(params[:id])
   end
 
   def set_user

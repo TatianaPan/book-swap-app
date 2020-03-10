@@ -1,4 +1,7 @@
-%h1 My library
+- if @user == current_user
+  %h1 My library
+- else
+  %h1= "#{@user.decorate.display_full_name}'s  library"
 
 %table.table.my-books
   %thead

@@ -12,12 +12,16 @@ class BooksController < ApplicationController
 
   def new
     @book = @user.books.new
+    authorize @book
   end
 
-  def edit; end
+  def edit
+    authorize @book
+  end
 
   def create
-    @book = @user.books.create(book_params)
+    @book = @user.books.new(book_params)
+    authorize @book
 
     if @book.save
       redirect_to user_books_path(@user), notice: 'Book has been added successfully.'
@@ -27,6 +31,7 @@ class BooksController < ApplicationController
   end
 
   def update
+    authorize @book
     if @book.update(book_params)
       redirect_to user_book_path(@user, @book), notice: 'Book has been updated successfully.'
     else
@@ -35,7 +40,9 @@ class BooksController < ApplicationController
   end
 
   def destroy
+    authorize @book
     @book.destroy
+
     redirect_to user_books_path(@user), notice: 'Book has been deleted.'
   end
 
@@ -46,7 +53,7 @@ class BooksController < ApplicationController
   end
 
   def set_book
-    @book = current_user.books.find_by(id: params[:id])
+    @book = Book.find(params[:id])
   end
 
   def set_user

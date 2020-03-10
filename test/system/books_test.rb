@@ -3,7 +3,7 @@ require 'application_system_test_case'
 class UsersTest < ApplicationSystemTestCase
   include Devise::Test::IntegrationHelpers
 
-  test 'display books' do
+  test 'display books of current user' do
     sign_in users(:schmidt)
     visit root_path
 
@@ -14,6 +14,19 @@ class UsersTest < ApplicationSystemTestCase
     within 'table.my-books' do
       assert_selector 'tbody tr'
     end
+  end
+
+  test 'user can see list of books of other user' do
+    sign_in users(:hoffman)
+    user = users(:schmidt)
+
+    visit users_path
+
+    within 'table tbody tr:nth-child(1) td:nth-child(4)' do
+      click_on 'Library'
+    end
+
+    assert_selector 'h1', text: "#{user.decorate.display_full_name}'s library"
   end
 
   test 'user can add new book' do
@@ -61,5 +74,17 @@ class UsersTest < ApplicationSystemTestCase
     end
 
     assert_selector '.notice', text: 'Book has been deleted.'
+  end
+
+  test "user do not see EDIT and DELETE button on other user's show book page" do
+    user = users(:hoffman)
+    book = books(:becoming)
+
+    sign_in user
+
+    visit user_book_path(book.user, book)
+
+    assert_no_selector 'a', text: 'Edit'
+    assert_no_selector 'a', text: 'Delete'
   end
 end

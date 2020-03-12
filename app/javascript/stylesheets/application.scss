@@ -1,4 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
-@import "./_sidebar"
+@import "./_sidebar";
 
-
+#page-content-wrapper {
+  width: 100%;
+}

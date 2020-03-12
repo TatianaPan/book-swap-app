@@ -41,7 +41,7 @@ class UsersTest < ApplicationSystemTestCase
 
     click_on 'Save'
 
-    assert_selector '.notice', text: 'Book has been added successfully.'
+    assert_selector 'notice', text: 'Book has been added successfully.'
   end
 
   test 'user can edit book info' do
@@ -59,7 +59,7 @@ class UsersTest < ApplicationSystemTestCase
     select('reserved', from: 'Status')
 
     click_on 'Save'
-    assert_selector '.notice', text: 'Book has been updated successfully.'
+    assert_selector 'notice', text: 'Book has been updated successfully.'
   end
 
   test 'user can delete a book' do
@@ -73,7 +73,7 @@ class UsersTest < ApplicationSystemTestCase
       click_link('Delete')
     end
 
-    assert_selector '.notice', text: 'Book has been deleted.'
+    assert_selector 'notice', text: 'Book has been deleted.'
   end
 
   test "user do not see EDIT and DELETE button on other user's show book page" do

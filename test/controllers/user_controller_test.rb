@@ -34,11 +34,33 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'Your profile has been updated.', flash[:notice]
   end
 
+  test 'PATCH/PUT/users/:id should not update without authorisation' do
+    user = users(:hoffman)
+    another_user = users(:schmidt)
+    sign_in user
+
+    assert_no_changes 'another_user.locations' do
+      patch user_url(another_user), params: { user: { locations: 'Adliswill' } }
+      another_user.reload.locations
+    end
+    assert_redirected_to root_url
+  end
+
   test 'DELETE/users/:id' do
     user = users(:hoffman)
     sign_in user
     assert_difference 'User.count', -1 do
       delete user_url(user)
+    end
+  end
+
+  test 'DELETE/users/:id should not delete without authorization' do
+    user = users(:hoffman)
+    another_user = users(:schmidt)
+    sign_in user
+
+    assert_no_difference 'User.count' do
+      delete user_url(another_user)
     end
   end
 

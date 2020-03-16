@@ -21,7 +21,7 @@ class UsersTest < ApplicationSystemTestCase
     fill_in 'Password confirmation', with: '123456'
     click_on 'Sign up'
 
-    assert_selector '.notice', text: 'Welcome! You have signed up successfully.'
+    assert_selector 'notice', text: 'Welcome! You have signed up successfully.'
   end
 
   test 'user can sign out' do
@@ -62,7 +62,7 @@ class UsersTest < ApplicationSystemTestCase
     fill_in 'First name', with: 'Mischa'
 
     click_on 'Save'
-    assert_selector '.notice', text: 'Your profile has been updated.'
+    assert_selector 'notice', text: 'Your profile has been updated.'
   end
 
   test 'user can delete his profile if he has no associated records' do
@@ -75,7 +75,7 @@ class UsersTest < ApplicationSystemTestCase
       click_link('Delete')
     end
 
-    assert_selector '.alert', text: 'Your account has been deleted.'
+    assert_selector 'alert', text: 'Your account has been deleted.'
   end
 
   test 'user cannot delete his account because of rectrictions' do
@@ -88,7 +88,7 @@ class UsersTest < ApplicationSystemTestCase
       click_link('Delete')
     end
 
-    assert_selector '.alert', text: 'You cannot delete your account.'
+    assert_selector 'alert', text: 'You cannot delete your account.'
   end
 
   test ' user cannot see the button EDIT for other user profile' do

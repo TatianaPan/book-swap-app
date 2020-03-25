@@ -16,6 +16,8 @@ class UsersTest < ApplicationSystemTestCase
   test 'user can sign up' do
     visit new_user_registration_path
 
+    fill_in 'First name', with: 'John'
+    fill_in 'Last name', with: 'Doe'
     fill_in 'Email', with: 'john.doe@gamil.com'
     fill_in 'Password', with: '123456'
     fill_in 'Password confirmation', with: '123456'
@@ -91,7 +93,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_selector 'alert', text: 'You cannot delete your account.'
   end
 
-  test ' user cannot see the button EDIT for other user profile' do
+  test 'user cannot see the button EDIT for other user profile' do
     user = users(:hoffman)
     sign_in user
 

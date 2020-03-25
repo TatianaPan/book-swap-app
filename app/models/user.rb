@@ -7,8 +7,8 @@ class User < ApplicationRecord
 
   has_many :books, dependent: :restrict_with_exception
 
-  validates :first_name, length: { maximum: 25 }
-  validates :last_name, length: { maximum: 25 }
+  validates :first_name, length: { maximum: 25 }, presence: true
+  validates :last_name, length: { maximum: 25 }, presence: true
 
   def self.create_if_not_exist(data)
     user = User.find_by(email: data[:email])

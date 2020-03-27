@@ -9,7 +9,7 @@ class UsersTest < ApplicationSystemTestCase
     fill_in 'Email', with: 'm.schmidt@gmail.com'
     fill_in 'Password', with: '56kogakhdgTR'
 
-    click_on 'Log in'
+    click_on 'Log In'
     assert_selector 'h1', text: 'Welcome to Book Swap App'
   end
 
@@ -21,7 +21,7 @@ class UsersTest < ApplicationSystemTestCase
     fill_in 'Email', with: 'john.doe@gamil.com'
     fill_in 'Password', with: '123456'
     fill_in 'Password confirmation', with: '123456'
-    click_on 'Sign up'
+    click_on 'Sign Up'
 
     assert_selector 'notice', text: 'Welcome! You have signed up successfully.'
   end
@@ -30,7 +30,7 @@ class UsersTest < ApplicationSystemTestCase
     sign_in users(:schmidt)
     visit root_path
     click_on 'Sign out'
-    assert_selector 'h2', text: 'Log in'
+    assert_selector 'h2', text: 'Log In'
   end
 
   test 'display all users' do

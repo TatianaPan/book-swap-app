@@ -4,3 +4,16 @@
 #page-content-wrapper {
   width: 100%;
 }
+
+.big-button {
+  width: 100%;
+}
+
+.column-background {
+  display: flex;
+  object-fit: contain;
+  background-image: url('../images/books.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  align-items: center;
+}

@@ -19,7 +19,7 @@ class UsersTest < ApplicationSystemTestCase
     fill_in 'First name', with: 'John'
     fill_in 'Last name', with: 'Doe'
     fill_in 'Email', with: 'john.doe@gamil.com'
-    fill_in 'Password', with: '123456'
+    fill_in 'Password', with: '123456', id: 'user_password'
     fill_in 'Password confirmation', with: '123456'
     click_on 'Sign Up'
 

@@ -1,6 +1,10 @@
 .row
-  .col-6
-  .col-6
+  .col-6.column-background
+    .display-2.p-2.text-center Book
+    .display-2.p-2.text-center Swap
+    .display-2.p-2.text-center App
+  .col-6.p-5
+    = render '/layouts/alerts'
     %h2.p-5.text-center Log In
     = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       .form-inputs
@@ -22,5 +26,3 @@
 
       %p.d-inline-block Or use
       = link_to 'Google Account', user_google_oauth2_omniauth_authorize_path, method: :post
-
-    -# = render "users/shared/links"

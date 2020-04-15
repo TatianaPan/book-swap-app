@@ -2,23 +2,10 @@
 @import "./_sidebar";
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
-#page-content-wrapper {
-  width: 100%;
-}
-
-.big-button {
-  width: 100%;
-}
-
-.column-background {
-  display: flex;
-  flex-direction: column;
-  object-fit: contain;
+.authentication-landing-column {
   background-image: linear-gradient(103deg, #222E62, #6A98CC);
   background-repeat: no-repeat;
   background-size: cover;
-  align-items: center;
-  justify-content: center;
   color: white;
   height: 100vh;
   font-family: 'Lobster', cursive;

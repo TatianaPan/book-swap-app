@@ -3,6 +3,17 @@ require 'test_helper'
 class UsersControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
+  test 'POST/users' do
+    user_params = { user: { email: 'john.doe@gmail.com',
+                            password: '123ght356',
+                            first_name: 'John',
+                            last_name: 'Doe' } }
+    assert_difference 'User.count', 1 do
+      post user_registration_url, params: user_params
+    end
+    assert_redirected_to root_url
+  end
+
   test 'GET/users' do
     sign_in users(:schmidt)
     get users_path

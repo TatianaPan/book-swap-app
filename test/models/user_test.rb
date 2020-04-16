@@ -21,4 +21,11 @@ class UserTest < ActiveSupport::TestCase
       assert_equal user.email, matching_user.email
     end
   end
+
+  test 'should not create user without first name or last name' do
+    user = User.new(email: 'marion.myer@example.com', password: '123kfhg', first_name: '', last_name: ' ')
+    user.validate
+    assert_includes user.errors.to_a, "First name can't be blank"
+    assert_includes user.errors.to_a, "Last name can't be blank"
+  end
 end

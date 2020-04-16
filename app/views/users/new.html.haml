@@ -1,0 +1,8 @@
+.row
+  = render 'users/left_column'
+
+  .col-6.pt-5.pb-2.pl-5.pr-5
+    - if controller_name == 'registrations'
+      = render 'registrations'
+    - elsif controller_name == 'sessions'
+      = render 'sessions'

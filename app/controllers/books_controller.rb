@@ -39,6 +39,13 @@ class BooksController < ApplicationController
     end
   end
 
+  def reserve
+    @book = @user.books.find_by(id: params[:id])
+    authorize @book
+    @book.update_columns(status: 'reserved', borrower_id: current_user)
+    redirect_to user_book_path(@user, @book), notice: 'You reserved this book.'
+  end
+
   def destroy
     authorize @book
     @book.destroy
@@ -49,7 +56,7 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :author, :description, :isbn13, :isbn10, :release_date, :status)
+    params.require(:book).permit(:title, :author, :description, :isbn13, :isbn10, :release_date, :status, :borrower_id)
   end
 
   def set_book

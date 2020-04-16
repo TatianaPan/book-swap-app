@@ -1,5 +1,6 @@
 class Book < ApplicationRecord
   belongs_to :user
+  belongs_to :borrower, class_name: 'User', inverse_of: :borrowed_books
   before_validation :strip_input_fields
 
   validates :isbn10, length: { is: 10 },

@@ -6,6 +6,7 @@ becoming:
   release_date: 2018-02-01
   status: 'available'
   user: schmidt
+  borrower_id: nil
 
 harry_potter:
   title: "Harry Potter and the Philosopher's Stone"
@@ -15,3 +16,4 @@ harry_potter:
   release_date: 2010-02-01
   status: 'available'
   user: schmidt
+  borrower_id: nil

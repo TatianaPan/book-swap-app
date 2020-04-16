@@ -22,6 +22,10 @@ class BookPolicy
     record.user == user
   end
 
+  def reserve?
+    record.user != user
+  end
+
   def destroy?
     record.user == user
   end

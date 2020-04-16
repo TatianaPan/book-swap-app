@@ -6,6 +6,9 @@
 
 %p= @book.status
 
+- if policy(@book).reserve? && @book.status == 'available'
+  = link_to 'Reserve', reserve_user_book_path(@user, @book), method: :put, class: 'btn btn-primary'
+
 - if policy(@book).edit?
   = link_to 'Edit', edit_user_book_path(@user, @book), class: 'btn btn-primary'
 

@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   get 'users/sign_in', to: 'users/sessions#new'
 
   resources :users do
-    resources :books
+    resources :books do
+      member do
+        patch :reserve
+        put :reserve
+      end
+    end
   end
 end

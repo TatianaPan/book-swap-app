@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       member do
         patch :reserve
         put :reserve
+        patch :unreserve
+        put :unreserve
       end
     end
   end

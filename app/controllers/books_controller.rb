@@ -42,8 +42,17 @@ class BooksController < ApplicationController
   def reserve
     @book = @user.books.find_by(id: params[:id])
     authorize @book
-    @book.update_columns(status: 'reserved', borrower_id: current_user)
+
+    @book.update_columns(status: 'reserved', borrower_id: current_user.id)
     redirect_to user_book_path(@user, @book), notice: 'You reserved this book.'
+  end
+
+  def unreserve
+    @book = @user.books.find_by(id: params[:id])
+    authorize @book
+
+    @book.update_columns(status: 'available', borrower_id: nil)
+    redirect_to user_book_path(@user, @book), notice: 'Book is unreserved.'
   end
 
   def destroy

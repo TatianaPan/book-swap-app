@@ -26,6 +26,10 @@ class BookPolicy
     record.user != user
   end
 
+  def unreserve?
+    record.borrower_id == user.id
+  end
+
   def destroy?
     record.user == user
   end

@@ -17,3 +17,33 @@
 
 - if policy(@user).edit?
   = link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary'
+
+- if @user == current_user
+  %h2.mt-5.mb-3 My reservations
+
+  .border.rounded-lg.shadow-sm
+    %table.table
+      %thead.thead-light
+        %tr
+          %th.p-3 Book
+          %th.p-3 Owner
+      %tbody
+        - @my_reservations.each do |book|
+          %tr
+            %td.p-3= link_to book.title, user_book_url(book.user, book)
+            %td.p-3= link_to book.user.decorate.display_full_name, user_url(book.user)
+
+  %h2.mt-5.mb-3 Reserved from me:
+
+  .border.rounded-lg.shadow-sm
+    %table.table
+      %thead.thead-light
+        %tr
+          %th.p-3 Book
+          %th.p-3 Reserved by
+      %tbody
+        - @books_reserved_from_me.each do |book|
+          %tr
+            %td.p-3= link_to book.title, user_book_url(book.user, book)
+            %td.p-3= link_to book.borrower.decorate.display_full_name, user_url(book.borrower)
+

@@ -4,7 +4,10 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show; end
+  def show
+    @my_reservations = current_user.borrowed_books
+    @books_reserved_from_me = current_user.books.where(status: 'reserved')
+  end
 
   def edit
     authorize @user

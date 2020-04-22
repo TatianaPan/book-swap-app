@@ -28,4 +28,33 @@ class BookPolicyTest < ActiveSupport::TestCase
     refute_permit(user, book, :update?)
     refute_permit(user, book, :destroy?)
   end
+
+  test 'user can NOT reserve and unreserve his own book' do
+    user = users(:schmidt)
+    book = books(:becoming)
+
+    sign_in user
+
+    refute_permit(user, book, :reserve?)
+    refute_permit(user, book, :unreserve?)
+  end
+
+  test 'user can reserve a book of another user' do
+    user = users(:hoffman)
+    book = books(:becoming)
+
+    sign_in user
+
+    assert_permit(user, book, :reserve?)
+  end
+
+  test 'user can unreserve a book reserved by his own' do
+    user = users(:hoffman)
+    book = books(:becoming)
+
+    sign_in user
+
+    book.update(status: 'reserved', borrower_id: user.id)
+    assert_permit(user, book, :unreserve?)
+  end
 end

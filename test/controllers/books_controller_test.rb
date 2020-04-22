@@ -19,17 +19,14 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
   test 'POST/users/:user_id/books' do
     user = users(:schmidt)
-    book = books(:becoming)
     sign_in user
 
-    book_params = { book: { title: book.title, author: book.author,
-                            release_date: book.release_date, status: book.status,
-                            isbn13: book.isbn13,
-                            isbn10: book.isbn10, description: '', borrower_id: book.borrower_id } }
+    book_params = { book: { title: 'Three Daughters of Eve', author: 'Elif Shafak',
+                            release_date: '2020-12-05', status: 'available',
+                            isbn13: '',
+                            isbn10: '', description: '', borrower_id: nil } }
     assert_difference 'Book.count', 1 do
-      byebug
       post user_books_url(user), params: book_params
-      byebug
     end
     assert_redirected_to user_books_url
   end
@@ -105,5 +102,27 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
       delete user_book_url(book.user, book)
     end
     assert_redirected_to root_path
+  end
+
+  test 'PATCH/PUT/users/:user_id/books/:id/reserve' do
+    user = users(:hoffman)
+    book = books(:becoming)
+    sign_in user
+
+    put reserve_user_book_path(book.user, book)
+    assert_equal user.id, book.reload.borrower_id
+    assert_equal 'reserved', book.reload.status
+  end
+
+  test 'PATCH/PUT/users/:user_id/books/:id/unreserve' do
+    user = users(:hoffman)
+    book = books(:harry_potter)
+    sign_in user
+
+    book.update(status: 'reserved', borrower_id: user.id)
+    put unreserve_user_book_path(book.user, book)
+
+    assert_equal 'available', book.reload.status
+    assert_nil book.reload.borrower_id
   end
 end

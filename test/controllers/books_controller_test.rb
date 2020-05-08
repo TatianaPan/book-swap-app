@@ -68,8 +68,19 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     sign_in user
     book = books(:becoming)
     patch user_book_url(user, book), params: { book: { status: 'reserved' } }
+
     assert_redirected_to user_book_url(book.user, book)
     assert_equal 'reserved', book.reload.status
+    assert_equal user.id, book.reload.borrower_id
+
+    patch user_book_url(user, book), params: { book: { status: 'borrowed' } }
+    assert_equal 'borrowed', book.reload.status
+    assert_equal user.id, book.reload.borrower_id
+
+    patch user_book_url(user, book), params: { book: { status: 'available' } }
+
+    assert_equal 'available', book.reload.status
+    assert_nil book.reload.borrower_id
   end
 
   test 'PATCH/PUT/users/:user_id/books/:id should not edit book' do

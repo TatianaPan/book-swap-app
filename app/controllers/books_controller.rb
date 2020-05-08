@@ -32,11 +32,19 @@ class BooksController < ApplicationController
 
   def update
     authorize @book
-    if @book.update(book_params)
-      redirect_to user_book_path(@user, @book), notice: 'Book has been updated successfully.'
+
+    @book.update(book_params)
+
+    if @book.status == 'reserved'
+      @book.update({ borrower_id: current_user.id })
+      # after book was reserved and after it has been passed, borrower_id should remain the same
+    elsif @book.status == 'borrowed'
+      @book.update({ borrower_id: @book.borrower_id })
     else
-      render :edit
+      @book.update({ borrower_id: nil })
     end
+
+    redirect_to user_book_path(@user, @book), notice: 'Book has been updated successfully.'
   end
 
   def reserve

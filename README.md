@@ -2,14 +2,9 @@
 
 [![Semaphore Pipeline](https://tatiana-panf.semaphoreci.com/badges/book-swap-app.svg?key=99efe26b-65de-4cb8-8c78-4b85480d5072)](https://tatiana-panf.semaphoreci.com/projects/book-swap-app)
 
-## Environments
-
-* Staging: [book-swap-app-staging.herokuapp.com](https://book-swap-app-staging.herokuapp.com/)
-* Production: [book-swap-app.herokuapp.com](https://book-swap-app.herokuapp.com/)
-
 ## Context
 
-An application that allows users to create lists of their books (My library), to reserve books from other users and then to exchange these books.
+An application allows users to create lists of their books (My library), to reserve books from other users and then to exchange these books.
 
 ## Project setup
 

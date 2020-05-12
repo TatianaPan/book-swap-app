@@ -18,7 +18,10 @@ class Book < ApplicationRecord
 
   private
 
+  # rubocop: disable Metrics/AbcSize
   def strip_input_fields
+    self.author = author.strip unless author.nil?
+    self.title = title.strip unless author.nil?
     self.isbn10 = isbn10.strip unless isbn10.nil?
     self.isbn13 = isbn13.strip unless isbn13.nil?
   end

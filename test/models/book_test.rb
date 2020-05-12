@@ -11,9 +11,14 @@ class BookTest < ActiveSupport::TestCase
   end
 
   test 'remove trailing whitespaces in isbn10 and isbn13 fields' do
-    book = Book.create(title: 'Pippi Langstrumf', author: 'Atsrid Lindgren', release_date: '1994',
+    user = users(:schmidt)
+    sign_in user
+
+    book = Book.create(title: ' Pippi Langstrumf ', author: ' Atsrid Lindgren', release_date: '1994',
                        status: 'available', isbn10: '1546890654 ', isbn13: ' 9078612345123')
 
+    assert_equal 'Pippi Langstrumf', book.title
+    assert_equal 'Atsrid Lindgren', book.author
     assert_equal '1546890654', book.isbn10
     assert_equal '9078612345123', book.isbn13
   end

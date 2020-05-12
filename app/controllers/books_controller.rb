@@ -3,7 +3,7 @@ class BooksController < ApplicationController
   before_action :set_user
 
   def index
-    @books = @user.books
+    @books = @user.books.order(:author)
   end
 
   def show

@@ -58,7 +58,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'DELETE/users/:id' do
-    user = users(:hoffman)
+    user = users(:schuhmacher)
     sign_in user
     assert_difference 'User.count', -1 do
       delete user_url(user)

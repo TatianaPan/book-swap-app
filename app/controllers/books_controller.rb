@@ -32,7 +32,7 @@ class BooksController < ApplicationController
 
   def update
     authorize @book
-  
+
     if @book.update(book_params)
       redirect_to user_book_path(@user, @book), notice: 'Book has been updated successfully.'
     else

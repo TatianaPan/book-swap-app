@@ -17,3 +17,13 @@ harry_potter:
   status: 'available'
   user: schmidt
   borrower_id: nil
+
+lord_of_rings_reserved:
+  title: "The Lord of the Rings"
+  author: 'J.R.R.Tolkien'
+  isbn10: '1408810549'
+  isbn13: '9781408810545'
+  release_date: 1954-07-29
+  status: 'reserved'
+  user: hoffman
+  borrower: schmidt

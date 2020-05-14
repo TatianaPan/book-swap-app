@@ -68,7 +68,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'user can delete his profile if he has no associated records' do
-    user = users(:hoffman)
+    user = users(:schuhmacher)
     sign_in user
 
     visit edit_user_path(user)

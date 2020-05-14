@@ -9,13 +9,7 @@
 = simple_form_for [@book.user, @book], method: :put do |f|
   = f.hidden_field :status, value: "reserved"
   = f.hidden_field :borrower_id, value: current_user.id
-  = f.submit 'Reserve', class: 'reservation-btn btn btn-primary'
-
--# - if policy(@book).reserve? && @book.status == 'available'
--#   = link_to 'Reserve', reserve_user_book_path(@user, @book), method: :put, class: 'btn btn-primary'
-
--# - if policy(@book).unreserve? && @book.status == 'reserved'
--#   = link_to 'Unreserve', unreserve_user_book_path(@user, @book), method: :put, class: 'btn btn-primary'
+  = f.submit reservation_button_label(@book), class: 'reservation-btn btn btn-primary'
 
 - if policy(@book).edit?
   = link_to 'Edit', edit_user_book_path(@user, @book), class: 'btn btn-primary'

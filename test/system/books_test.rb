@@ -100,7 +100,7 @@ class UsersTest < ApplicationSystemTestCase
     end
 
     assert_selector 'notice', text: 'Book has been updated successfully.'
-    # assert_selector '.reservation-btn', text: 'Unreserve'
+    assert_equal 'Unreserve', find('.reservation-btn').value
   end
 
   test 'user can unreserve a book' do

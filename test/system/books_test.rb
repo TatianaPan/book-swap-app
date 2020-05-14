@@ -88,15 +88,19 @@ class UsersTest < ApplicationSystemTestCase
     assert_no_selector 'a', text: 'Delete'
   end
 
-  test 'user can reserve a book' do
+  test 'user can reserve an available book that they do not own' do
     user = users(:hoffman)
     book = books(:becoming)
     sign_in user
 
     visit user_book_path(book.user, book)
 
-    click_on 'Reserve'
-    assert_selector 'notice', text: 'You reserved this book.'
+    assert_changes 'book.reload.status', from: 'available', to: 'reserved' do
+      click_on 'Reserve'
+    end
+
+    assert_selector 'notice', text: 'Book has been updated successfully.'
+    # assert_selector '.reservation-btn', text: 'Unreserve'
   end
 
   test 'user can unreserve a book' do

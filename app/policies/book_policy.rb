@@ -19,15 +19,7 @@ class BookPolicy
   end
 
   def update?
-    record.user == user
-  end
-
-  def reserve?
-    record.user != user
-  end
-
-  def unreserve?
-    record.borrower_id == user.id && record.user_id != user.id
+    !user.nil?
   end
 
   def destroy?

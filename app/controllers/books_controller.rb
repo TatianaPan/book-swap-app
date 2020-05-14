@@ -32,35 +32,11 @@ class BooksController < ApplicationController
 
   def update
     authorize @book
-
-    @book.update(book_params)
-
-    if @book.status == 'reserved'
-      @book.update({ borrower_id: current_user.id })
-      # after book was reserved and after it has been passed, borrower_id should remain the same
-    elsif @book.status == 'borrowed'
-      @book.update({ borrower_id: @book.borrower_id })
+    if @book.update(book_params)
+      redirect_to user_book_path(@user, @book), notice: 'Book has been updated successfully.'
     else
-      @book.update({ borrower_id: nil })
+      render :edit
     end
-
-    redirect_to user_book_path(@user, @book), notice: 'Book has been updated successfully.'
-  end
-
-  def reserve
-    @book = @user.books.find_by(id: params[:id])
-    authorize @book
-
-    @book.update({ status: 'reserved', borrower_id: current_user.id })
-    redirect_to user_book_path(@user, @book), notice: 'You reserved this book.'
-  end
-
-  def unreserve
-    @book = @user.books.find_by(id: params[:id])
-    authorize @book
-
-    @book.update(status: 'available', borrower_id: nil)
-    redirect_to user_book_path(@user, @book), notice: 'Book is unreserved.'
   end
 
   def destroy

@@ -67,20 +67,10 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     user = users(:schmidt)
     sign_in user
     book = books(:becoming)
-    patch user_book_url(user, book), params: { book: { status: 'reserved' } }
-
+    patch user_book_url(user, book), params: { book: { status: 'reserved', borrower_id: user.id } }
     assert_redirected_to user_book_url(book.user, book)
     assert_equal 'reserved', book.reload.status
-    assert_equal user.id, book.reload.borrower_id
-
-    patch user_book_url(user, book), params: { book: { status: 'borrowed' } }
-    assert_equal 'borrowed', book.reload.status
-    assert_equal user.id, book.reload.borrower_id
-
-    patch user_book_url(user, book), params: { book: { status: 'available' } }
-
-    assert_equal 'available', book.reload.status
-    assert_nil book.reload.borrower_id
+    assert_equal user.id, book.borrower_id
   end
 
   test 'PATCH/PUT/users/:user_id/books/:id should not edit book' do
@@ -113,27 +103,5 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
       delete user_book_url(book.user, book)
     end
     assert_redirected_to root_path
-  end
-
-  test 'PATCH/PUT/users/:user_id/books/:id/reserve' do
-    user = users(:hoffman)
-    book = books(:becoming)
-    sign_in user
-
-    put reserve_user_book_path(book.user, book)
-    assert_equal user.id, book.reload.borrower_id
-    assert_equal 'reserved', book.reload.status
-  end
-
-  test 'PATCH/PUT/users/:user_id/books/:id/unreserve' do
-    user = users(:hoffman)
-    book = books(:harry_potter)
-    sign_in user
-
-    book.update(status: 'reserved', borrower_id: user.id)
-    put unreserve_user_book_path(book.user, book)
-
-    assert_equal 'available', book.reload.status
-    assert_nil book.reload.borrower_id
   end
 end

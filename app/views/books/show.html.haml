@@ -6,10 +6,11 @@
 
 %p= @book.status
 
-= simple_form_for [@book.user, @book], method: :put do |f|
-  = f.hidden_field :status, value: next_reservation_status(@book)
-  = f.hidden_field :borrower_id, value: current_user.id
-  = f.submit reservation_button_label(@book), class: 'reservation-btn btn btn-primary'
+- if policy(@book).show_reservation_btn?
+  = simple_form_for [@book.user, @book], method: :put do |f|
+    = f.hidden_field :status, value: next_reservation_status(@book)
+    = f.hidden_field :borrower_id, value: current_user.id
+    = f.submit reservation_button_label(@book), class: 'reservation-btn btn btn-primary'
 
 - if policy(@book).edit?
   = link_to 'Edit', edit_user_book_path(@user, @book), class: 'btn btn-primary'

@@ -22,6 +22,10 @@ class BookPolicy
     !user.nil?
   end
 
+  def show_reservation_btn?
+    (record.borrower.nil? || record.borrower == user) && record.user != user
+  end
+
   def destroy?
     record.user == user
   end

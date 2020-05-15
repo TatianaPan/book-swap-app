@@ -117,5 +117,23 @@ class UsersTest < ApplicationSystemTestCase
     assert_equal 'Reserve', find('.reservation-btn').value
   end
 
+  test 'user cannot see the reserve/unreserve button if the book is reserved by another user' do
+    user = users(:schuhmacher)
+    book = books(:lord_of_rings_reserved)
+    sign_in user
 
+    visit user_book_path(book.user, book)
+
+    assert_selector 'p', text: 'reserved'
+    assert_no_selector 'input', class: 'reservation-btn'
+  end
+
+  test 'user cannot reserve/unreserve his own book on book profile' do
+    user = users(:schmidt)
+    book = books(:becoming)
+    sign_in user
+
+    visit user_book_path(book.user, book)
+    assert_no_selector 'input', class: 'reservation-btn'
+  end
 end

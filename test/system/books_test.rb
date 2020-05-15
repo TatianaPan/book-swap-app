@@ -103,16 +103,19 @@ class UsersTest < ApplicationSystemTestCase
     assert_equal 'Unreserve', find('.reservation-btn').value
   end
 
-  test 'user can unreserve a book' do
-    user = users(:hoffman)
-    book = books(:becoming)
+  test 'user can unreserve book reserved by him' do
+    user = users(:schmidt)
+    book = books(:lord_of_rings_reserved)
     sign_in user
 
     visit user_book_path(book.user, book)
+    assert_changes 'book.reload.status', from: 'reserved', to: 'available' do
+      click_on 'Unreserve'
+    end
 
-    click_on 'Reserve'
-    assert_selector 'p', text: 'reserved'
-    click_on 'Unreserve'
-    assert_selector 'notice', text: 'Book is unreserved.'
+    assert_selector 'notice', text: 'Book has been updated successfully.'
+    assert_equal 'Reserve', find('.reservation-btn').value
   end
+
+
 end

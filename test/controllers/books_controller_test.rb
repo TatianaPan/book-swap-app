@@ -73,16 +73,20 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_equal user.id, book.borrower_id
   end
 
-  test 'PATCH/PUT/users/:user_id/books/:id should not edit book' do
+  test 'PATCH/PUT/users/:user_id/books/:id should not edit other users book except of status' do
     user = users(:hoffman)
     book = books(:becoming)
+    previous_attributes = book.attributes.except(:status)
 
     sign_in user
 
-    assert_no_changes 'book.status' do
-      patch user_book_url(book.user, book), params: { book: { status: 'reserved' } }
-    end
-    assert_redirected_to root_path
+    patch user_book_url(book.user, book), params: { book: { title: 'Normal People',
+                                                            author: 'Sally Rooney',
+                                                            isbn10: '1524903152',
+                                                            isbn13: '9781524763190',
+                                                            release_date: '2017-02-01' } }
+
+    assert_equal previous_attributes, book.reload.attributes.except(:status)
   end
 
   test 'DELETE/books/:id' do

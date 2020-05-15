@@ -44,8 +44,10 @@ class UsersTest < ApplicationSystemTestCase
     assert_selector 'notice', text: 'Book has been added successfully.'
   end
 
+  # rubocop: disable Lint/UselessAssignment
   test 'user can edit book info' do
     user = users(:schmidt)
+    book = books(:becoming)
     sign_in user
 
     visit user_books_path(user)
@@ -58,9 +60,12 @@ class UsersTest < ApplicationSystemTestCase
     click_on 'Edit'
     select('reserved', from: 'Status')
 
-    click_on 'Save'
+    assert_changes 'book.reload.borrower_id', from: nil, to: user.id do
+      click_on 'Save'
+    end
     assert_selector 'notice', text: 'Book has been updated successfully.'
   end
+  # rubocop: enable Lint/UselessAssignment
 
   test 'user can delete a book' do
     user = users(:schmidt)
@@ -110,7 +115,9 @@ class UsersTest < ApplicationSystemTestCase
 
     visit user_book_path(book.user, book)
     assert_changes 'book.reload.status', from: 'reserved', to: 'available' do
-      click_on 'Unreserve'
+      assert_changes 'book.reload.borrower_id', to: nil do
+        click_on 'Unreserve'
+      end
     end
 
     assert_selector 'notice', text: 'Book has been updated successfully.'

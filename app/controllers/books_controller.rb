@@ -53,7 +53,8 @@ class BooksController < ApplicationController
     if @user != current_user
       params.require(:book).permit(:status, :borrower_id)
     else
-      params.require(:book).permit(:title, :author, :description, :isbn13, :isbn10, :release_date, :status, :borrower_id)
+      params.require(:book)
+            .permit(:title, :author, :description, :isbn13, :isbn10, :release_date, :status, :borrower_id)
     end
   end
 

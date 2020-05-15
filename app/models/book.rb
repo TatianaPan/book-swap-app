@@ -2,6 +2,7 @@ class Book < ApplicationRecord
   belongs_to :user
   belongs_to :borrower, class_name: 'User', inverse_of: :borrowed_books, optional: true
   before_validation :strip_input_fields
+  before_save :handle_status_and_borrower_correlation
 
   validates :isbn10, length: { is: 10 },
                      numericality: { only_integer: true, greater_than: 0 },
@@ -17,4 +18,15 @@ class Book < ApplicationRecord
     self.isbn10 = isbn10.strip unless isbn10.nil?
     self.isbn13 = isbn13.strip unless isbn13.nil?
   end
+
+  # rubocop: disable Metrics/CyclomaticComplexity
+  def handle_status_and_borrower_correlation
+    return if status == 'available' && borrower.nil?
+    # If the borrower is already set, do not do anything.
+    return if (status == 'reserved' || status == 'borrowed') && borrower.present?
+
+    # if status changed to reserved/borrowed, but no borrower present, it means borrower is the owner
+    self.borrower = status == 'available' ? nil : user
+  end
+  # rubocop: enable Metrics/CyclomaticComplexity
 end

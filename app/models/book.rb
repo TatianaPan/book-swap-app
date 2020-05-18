@@ -21,14 +21,11 @@ class Book < ApplicationRecord
     self.isbn13 = isbn13.strip unless isbn13.nil?
   end
 
-  # rubocop: disable Metrics/CyclomaticComplexity
   def handle_status_and_borrower_correlation
-    return if status == 'available' && borrower.nil?
     # If the borrower is already set, do not do anything.
-    return if (status == 'reserved' || status == 'borrowed') && borrower.present?
+    return if status != 'available' && borrower.present?
 
-    # if status changed to reserved/borrowed, but no borrower present, it means borrower is the owner
+    # If status changed to reserved/borrowed, but no borrower present, it means borrower is the owner
     self.borrower = status == 'available' ? nil : user
   end
-  # rubocop: enable Metrics/CyclomaticComplexity
 end

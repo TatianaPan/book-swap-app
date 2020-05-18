@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :books, dependent: :restrict_with_exception
-  has_many :borrowed_books,
+  has_many :reserved_or_borrowed_books,
            class_name: 'Book',
            foreign_key: :borrower_id,
            inverse_of: :borrower,

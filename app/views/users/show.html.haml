@@ -45,7 +45,7 @@
           %th.p-3 Reserved by
           %th.p-3 Status
       %tbody
-        - @books_reserved_from_me.each do |book|
+        - @books_reserved_or_taken_from_me.each do |book|
           %tr
             %td.p-3= link_to book.title, user_book_url(book.user, book)
             %td.p-3= link_to book.borrower.decorate.display_full_name, user_url(book.borrower)

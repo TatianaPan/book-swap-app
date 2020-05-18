@@ -1,6 +1,8 @@
 class Book < ApplicationRecord
   belongs_to :user
-  belongs_to :borrower, class_name: 'User', inverse_of: :borrowed_books, optional: true
+  belongs_to :borrower, class_name: 'User', inverse_of: :reserved_or_borrowed_books, optional: true
+  enum status: { available: 'available', reserved: 'reserved', borrowed: 'borrowed' }
+
   before_validation :strip_input_fields
   before_save :handle_status_and_borrower_correlation
 

@@ -1,4 +1,8 @@
+DEFAULTS: &DEFAULTS
+  borrower_id: nil
+
 becoming:
+  <<: *DEFAULTS
   title: 'Becoming'
   author: 'Michelle Obama'
   isbn10: '1524763152'
@@ -6,9 +10,9 @@ becoming:
   release_date: 2018-02-01
   status: 'available'
   user: schmidt
-  borrower_id: nil
 
 harry_potter:
+  <<: *DEFAULTS
   title: "Harry Potter and the Philosopher's Stone"
   author: 'J.K. Rowling'
   isbn10: '1408810549'
@@ -16,7 +20,6 @@ harry_potter:
   release_date: 2010-02-01
   status: 'available'
   user: schmidt
-  borrower_id: nil
 
 lord_of_rings_reserved:
   title: "The Lord of the Rings"

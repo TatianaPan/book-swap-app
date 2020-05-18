@@ -5,10 +5,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @my_reservations = current_user.borrowed_books
-    @books_reserved_from_me = current_user.books
-                                          .where(status: 'reserved')
-                                          .or(current_user.books.where(status: 'borrowed'))
+    @my_reservations = current_user.reserved_or_borrowed_books
+    @books_reserved_or_taken_from_me = current_user.books
+                                                   .where(status: %i[reserved borrowed])
   end
 
   def edit

@@ -33,7 +33,10 @@
           %tr
             %td.p-3= link_to book.title, user_book_url(book.user, book)
             %td.p-3= link_to book.user.decorate.display_full_name, user_url(book.user)
-            %td.p-3= book.status
+            %td.p-3
+              .d-inline-flex.align-items-center
+                .mr-1= book.status
+                = status_icon(book)
 
   %h2.mt-5.mb-3 Reserved from me:
 
@@ -49,5 +52,8 @@
           %tr
             %td.p-3= link_to book.title, user_book_url(book.user, book)
             %td.p-3= link_to book.borrower.decorate.display_full_name, user_url(book.borrower)
-            %td.p-3= book.status
+            %td.p-3
+              .d-inline-flex.align-items-center
+                .mr-1= book.status
+                = status_icon(book)
 

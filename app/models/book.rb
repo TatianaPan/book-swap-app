@@ -1,6 +1,8 @@
 class Book < ApplicationRecord
+  STATUSES_REQUIRING_A_BORROWER = %w[reserved borrowed].freeze
+
   belongs_to :user
-  belongs_to :borrower, class_name: 'User', inverse_of: :reserved_or_borrowed_books, optional: true
+  belongs_to :borrower, class_name: 'User', inverse_of: :books_on_loan, optional: true
   enum status: { available: 'available', reserved: 'reserved', borrowed: 'borrowed' }
 
   before_validation :strip_input_fields
@@ -23,9 +25,9 @@ class Book < ApplicationRecord
 
   def handle_status_and_borrower_correlation
     # If the borrower is already set, do not do anything.
-    return if status != 'available' && borrower.present?
+    return if STATUSES_REQUIRING_A_BORROWER.include?(status) && borrower.present?
 
     # If status changed to reserved/borrowed, but no borrower present, it means borrower is the owner
-    self.borrower = status == 'available' ? nil : user
+    self.borrower = !STATUSES_REQUIRING_A_BORROWER.include?(status) ? nil : user
   end
 end

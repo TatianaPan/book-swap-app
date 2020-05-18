@@ -1,17 +1,16 @@
-%h1 Users
+%h1.mb-5 Users
 
-%table.table.all-users
-  %thead
-    %tr
-      %th Name
-      %th Email
-      %th Locations
-      %th Books
-
-  %tbody
-    - @users.each do |user|
+.border.rounded-lg.shadow-sm
+  %table.table.all-users
+    %thead.thead-light
       %tr
-        %td= link_to user.decorate.display_full_name, user_path(user)
-        %td= user.email
-        %td= user.locations
-        %td= link_to 'Library', user_books_path(user)
+        %th.p-3 Name
+        %th.p-3 Locations
+        %th.p-3
+
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td.p-3= link_to user.decorate.display_full_name, user_path(user)
+          %td.p-3= user.locations
+          %td.p-3= link_to 'Library', user_books_path(user)

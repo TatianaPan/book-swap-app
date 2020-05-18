@@ -6,7 +6,7 @@
 
 %p
   .d-inline-flex.align-items-center.mt-2.mb-3
-    .mr-1= @book.status
+    .book-status.mr-1= @book.status
     = status_icon(@book)
 
 - if policy(@book).show_reservation_btn?

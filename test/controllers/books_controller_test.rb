@@ -19,13 +19,12 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
   test 'POST/users/:user_id/books' do
     user = users(:schmidt)
-    book = books(:becoming)
     sign_in user
 
-    book_params = { book: { title: book.title, author: book.author,
-                            release_date: book.release_date, status: book.status,
-                            isbn13: book.isbn13,
-                            isbn10: book.isbn10, description: '' } }
+    book_params = { book: { title: 'Three Daughters of Eve', author: 'Elif Shafak',
+                            release_date: '2020-12-05', status: 'available',
+                            isbn13: '',
+                            isbn10: '', description: '', borrower_id: nil } }
     assert_difference 'Book.count', 1 do
       post user_books_url(user), params: book_params
     end
@@ -68,21 +67,26 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     user = users(:schmidt)
     sign_in user
     book = books(:becoming)
-    patch user_book_url(user, book), params: { book: { status: 'reserved' } }
+    patch user_book_url(user, book), params: { book: { status: 'reserved', borrower_id: user.id } }
     assert_redirected_to user_book_url(book.user, book)
     assert_equal 'reserved', book.reload.status
+    assert_equal user.id, book.borrower_id
   end
 
-  test 'PATCH/PUT/users/:user_id/books/:id should not edit book' do
+  test 'PATCH/PUT/users/:user_id/books/:id should not edit other users book except of status' do
     user = users(:hoffman)
     book = books(:becoming)
+    previous_attributes = book.attributes.except(:status)
 
     sign_in user
 
-    assert_no_changes 'book.status' do
-      patch user_book_url(book.user, book), params: { book: { status: 'reserved' } }
-    end
-    assert_redirected_to root_path
+    patch user_book_url(book.user, book), params: { book: { title: 'Normal People',
+                                                            author: 'Sally Rooney',
+                                                            isbn10: '1524903152',
+                                                            isbn13: '9781524763190',
+                                                            release_date: '2017-02-01' } }
+
+    assert_equal previous_attributes, book.reload.attributes.except(:status)
   end
 
   test 'DELETE/books/:id' do

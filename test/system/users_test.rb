@@ -68,7 +68,7 @@ class UsersTest < ApplicationSystemTestCase
   end
 
   test 'user can delete his profile if he has no associated records' do
-    user = users(:hoffman)
+    user = users(:schuhmacher)
     sign_in user
 
     visit edit_user_path(user)
@@ -104,5 +104,42 @@ class UsersTest < ApplicationSystemTestCase
     end
 
     assert_no_selector 'a', text: 'Edit'
+  end
+
+  test 'user can see list of books that he reserved/borrowed' do
+    user = users(:hoffman)
+    book = books(:harry_potter)
+
+    sign_in user
+
+    visit user_book_path(book.user, book)
+
+    click_on 'Reserve'
+
+    click_on 'My Profile'
+
+    within 'table.table.my-reservations tbody' do
+      assert_selector 'tr:nth-child(1) td:nth-child(1)', text: "Harry Potter and the Philosopher's Stone"
+      assert_selector 'tr:nth-child(1) td:nth-child(2)', text: 'Michael Schmidt'
+    end
+  end
+
+  test 'user can see list of books reserved/borrowed from him' do
+    user = users(:hoffman)
+    owner = users(:schmidt)
+    book = books(:harry_potter)
+
+    sign_in owner
+
+    book.update({ status: 'reserved', borrower_id: user.id })
+    visit root_path
+
+    click_on 'My Profile'
+
+    within 'table.table.reserved-from-me tbody' do
+      assert_selector 'tr:nth-child(1) td:nth-child(1)', text: "Harry Potter and the Philosopher's Stone"
+      assert_selector 'tr:nth-child(1) td:nth-child(2)', text: 'Klara Hoffman'
+      assert_selector 'tr:nth-child(1) td:nth-child(3)', text: 'reserved'
+    end
   end
 end

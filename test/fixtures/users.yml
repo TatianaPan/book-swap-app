@@ -6,5 +6,13 @@ schmidt:
   locations: 'Zurich'
 
 hoffman:
-  email: 'clara.hoffman@mail.ru'
+  email: 'Klara.hoffman@mail.ru'
   encrypted_password: '3kjdmalkj70k'
+  first_name: 'Klara'
+  last_name: 'Hoffman'
+
+schuhmacher:
+  email: 'schuhmacher@gmail.com'
+  encrypted_password: '3kjdmalkj70k'
+  first_name: 'Michael'
+  last_name: 'Schuhmacher'

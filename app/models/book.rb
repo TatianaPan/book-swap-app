@@ -25,6 +25,7 @@ class Book < ApplicationRecord
     self.isbn10 = isbn10.strip unless isbn10.nil?
     self.isbn13 = isbn13.strip unless isbn13.nil?
   end
+  # rubocop: enable Metrics/AbcSize
 
   def handle_status_and_borrower_correlation
     # If the borrower is already set, do not do anything.

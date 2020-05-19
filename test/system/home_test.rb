@@ -11,7 +11,7 @@ class UsersTest < ApplicationSystemTestCase
 
     within 'table.table.all-books tbody ' do
       assert_selector 'tr:nth-child(1) td:nth-child(1)', text: 'J.K. Rowling'
-      assert_selector 'tr:nth-child(2) td:nth-child(1)', text: 'Michelle Obama'
+      assert_selector 'tr:nth-child(2) td:nth-child(1)', text: 'J.R.R.Tolkien'
     end
   end
 

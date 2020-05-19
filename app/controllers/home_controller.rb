@@ -2,14 +2,11 @@ class HomeController < ApplicationController
   before_action :set_user
 
   def index
-    @all_books = Book.all.order(:author)
     @search = params[:search]
-    # rubocop: disable Style/GuardClause
-    if @search.present?
-      @author = @search[:author].strip
-      @all_books = Book.where('author collate "ru_RU" ILIKE ?', "%#{@author}%")
-    end
-    # rubocop: enable Style/GuardClause
+    return @all_books = Book.all.order(:author) if @search.blank?
+
+    @author = @search[:author].strip
+    @all_books = Book.where('author collate "en_US" ILIKE ?', "%#{@author}%")
   end
 
   private

@@ -9,11 +9,11 @@ module BookHelper
 
   def status_icon(book)
     if book.available?
-      image_pack_tag('media/images/icons8-green-circle-50.png', style: "width: 20px;")
+      image_pack_tag('media/images/icons8-green-circle-50.png', style: 'width: 20px;')
     elsif book.reserved?
-      image_pack_tag('media/images/icons8-orange-circle-50.png', style: "width: 20px;")
+      image_pack_tag('media/images/icons8-orange-circle-50.png', style: 'width: 20px;')
     elsif book.borrowed?
-      image_pack_tag('media/images/icons8-red-circle-50.png', style: "width: 20px;")
+      image_pack_tag('media/images/icons8-red-circle-50.png', style: 'width: 20px;')
     end
   end
 end

@@ -11,7 +11,7 @@
       = link_to 'All users', users_path, class: 'list-group-item list-group-item-action bg-light'
 
       = link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'list-group-item list-group-item-action bg-light'
-    .sidebar-footer.py-3.px-4.position-fixed
+    %small.sidebar-footer.py-3.px-4.position-fixed.text-muted
       Icons made by
       %a{href: 'https://icons8.com', target: '_blank'}
         icons8.com

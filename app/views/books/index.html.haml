@@ -18,5 +18,5 @@
           %td.p-3= link_to book.title, user_book_path(book.user, book)
           %td.p-3
             .d-inline-flex.align-items-center
-              .mr-1= book.status
-              = status_icon(book)
+              .mr-1= status_icon(book)
+              = book.status

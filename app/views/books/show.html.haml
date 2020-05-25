@@ -4,7 +4,10 @@
 
 %p= @book.description
 
-%p= @book.status
+%p
+  .d-inline-flex.align-items-center.mt-2.mb-3
+    .mr-1= status_icon(@book)
+    .book-status= @book.status
 
 - if policy(@book).show_reservation_btn?
   = simple_form_for [@book.user, @book], method: :put do |f|

@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     return @all_books = Book.all.order(:author) if @search.blank?
 
     @author = @search[:author].strip
-    @all_books = Book.where('author collate "en_US" ILIKE ?', "%#{@author}%")
+    @all_books = Book.where('author ILIKE ?', "%#{@author}%")
   end
 
   private

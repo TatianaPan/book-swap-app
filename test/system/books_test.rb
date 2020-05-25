@@ -22,7 +22,7 @@ class UsersTest < ApplicationSystemTestCase
 
     visit users_path
 
-    within 'table tbody tr:nth-child(1) td:nth-child(4)' do
+    within 'table tbody tr:nth-child(1) td:nth-child(3)' do
       click_on 'Library'
     end
 
@@ -131,7 +131,7 @@ class UsersTest < ApplicationSystemTestCase
 
     visit user_book_path(book.user, book)
 
-    assert_selector 'p', text: 'reserved'
+    assert_equal 'reserved', find('.book-status').text
     assert_no_selector 'input', class: 'reservation-btn'
   end
 

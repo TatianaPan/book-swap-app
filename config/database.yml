@@ -1,8 +1,8 @@
 default: &default
   adapter: postgresql
   encoding: utf8
-  ctype: ru_RU
-  collation: ru_RU
+  ctype: ru_RU.UTF-8
+  collation: ru_RU.UTF-8
   template: template0
   pool: 5
   timeout: 5000

@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_094127) do
+ActiveRecord::Schema.define(version: 2020_06_03_113832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "books", force: :cascade do |t|
     t.string "title", null: false
-    t.string "author", null: false
+    t.string "first_name", null: false
     t.text "description"
     t.string "isbn10", limit: 10
     t.string "isbn13", limit: 13
@@ -27,8 +27,11 @@ ActiveRecord::Schema.define(version: 2020_05_19_094127) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "borrower_id"
-    t.index ["author"], name: "index_books_on_author"
+    t.string "last_name", null: false
     t.index ["borrower_id"], name: "index_books_on_borrower_id"
+    t.index ["first_name"], name: "index_books_on_first_name"
+    t.index ["last_name"], name: "index_books_on_last_name"
+    t.index ["title"], name: "index_books_on_title"
     t.index ["user_id"], name: "index_books_on_user_id"
   end
 

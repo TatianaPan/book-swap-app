@@ -64,4 +64,20 @@ class BookTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test '.search_by_author_title' do
+    user = users(:schmidt)
+    assert_equal 1, Book.search_by_author_title('obama becoming ').count
+    assert_changes 'Book.search_by_author_title("линдгрен").count', from: 1, to: 2 do
+      book = Book.new(title: 'Карлсон, который живет на крыше',
+                      first_name: 'Астрид',
+                      last_name: 'Линдгрен',
+                      release_date: '1994',
+                      status: 'available',
+                      isbn10: '1546890654 ',
+                      isbn13: ' 9078612345123',
+                      user: user)
+      book.save!
+    end
+  end
 end

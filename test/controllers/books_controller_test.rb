@@ -21,7 +21,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     user = users(:schmidt)
     sign_in user
 
-    book_params = { book: { title: 'Three Daughters of Eve', first_name: 'Elif',  last_name: 'Shafak',
+    book_params = { book: { title: 'Three Daughters of Eve', first_name: 'Elif', last_name: 'Shafak',
                             release_date: '2020-12-05', status: 'available',
                             isbn13: '',
                             isbn10: '', description: '', borrower_id: nil } }

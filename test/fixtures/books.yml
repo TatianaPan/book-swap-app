@@ -33,7 +33,7 @@ lord_of_rings_reserved:
   status: 'reserved'
   user: hoffman
   borrower: schmidt
-  
+
 russian_book:
   title: 'Пеппи Длинныйчулок'
   first_name: 'Астрид'

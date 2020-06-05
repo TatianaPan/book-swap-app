@@ -3,10 +3,10 @@ class HomeController < ApplicationController
 
   def index
     @search = params[:search]
-    return @all_books = Book.all.order(:last_name) if @search.blank?
+    return @books = Book.all.order(:last_name) if @search.blank?
 
-    @author = @search[:author].strip
-    @all_books = Book.where('author ILIKE ?', "%#{@author}%")
+    @author = @search[:author_title].strip
+    @books = Book.search_by_author_title(@author)
   end
 
   private

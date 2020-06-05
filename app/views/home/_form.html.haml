@@ -1,7 +1,7 @@
 = simple_form_for :search, url: root_path, method: "GET", html: { class: 'form-inline'} do |f|
 
   .form-group
-    = f.input :author, placeholder: 'Author', input_html: { value: "" }, label: false
+    = f.input :author_title, placeholder: 'Author or title', input_html: { value: "" }, label: false
 
   .form-group
     = f.submit 'Search', class: 'btn btn-primary m-3'

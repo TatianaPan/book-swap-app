@@ -20,7 +20,7 @@ class UsersTest < ApplicationSystemTestCase
     visit root_path
 
     assert_changes "find_all('tbody tr').count", to: 1 do
-      fill_in 'Author', with: 'линдгрен '
+      fill_in 'Author or title', with: 'линдгрен '
       click_on 'Search'
     end
   end

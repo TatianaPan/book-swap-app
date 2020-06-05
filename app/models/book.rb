@@ -1,4 +1,6 @@
 class Book < ApplicationRecord
+  include PgSearch::Model
+  pg_search_scope :search_by_author_title, against: %i[first_name last_name title]
   STATUSES_REQUIRING_A_BORROWER = %w[reserved borrowed].freeze
 
   belongs_to :user

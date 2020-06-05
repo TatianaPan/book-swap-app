@@ -2,7 +2,7 @@ require 'test_helper'
 
 class BookTest < ActiveSupport::TestCase
   test 'isbn10 and isbn13 should be a string of numbers' do
-    book = Book.new(title: 'Pippi Langstrumf', author: 'Atsrid Lindgren', release_date: '1994',
+    book = Book.new(title: 'Pippi Langstrumf', first_name: 'Atsrid', last_name: 'Lindgren', release_date: '1994',
                     status: 'available', isbn10: '1234arbnsP', isbn13: 'hgTb$12345123')
 
     book.validate
@@ -11,11 +11,12 @@ class BookTest < ActiveSupport::TestCase
   end
 
   test 'remove trailing whitespaces in author, title, isbn10 and isbn13 fields' do
-    book = Book.create(title: ' Pippi Langstrumf ', author: ' Atsrid Lindgren', release_date: '1994',
+    book = Book.create(title: ' Pippi Langstrumf ', first_name: ' Atsrid', last_name: 'Lindgren ', release_date: '1994',
                        status: 'available', isbn10: '1546890654 ', isbn13: ' 9078612345123')
 
     assert_equal 'Pippi Langstrumf', book.title
-    assert_equal 'Atsrid Lindgren', book.author
+    assert_equal 'Atsrid', book.first_name
+    assert_equal 'Lindgren', book.last_name
     assert_equal '1546890654', book.isbn10
     assert_equal '9078612345123', book.isbn13
   end

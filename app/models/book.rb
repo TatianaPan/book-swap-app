@@ -14,14 +14,15 @@ class Book < ApplicationRecord
   validates :isbn13, length: { is: 13 },
                      numericality: { only_integer: true, greater_than: 0 },
                      allow_blank: true
-  validates :title, :author, :status, presence: true
+  validates :title, :first_name, :last_name, :status, presence: true
 
   private
 
   # rubocop: disable Metrics/AbcSize
   def strip_input_fields
-    self.author = author.strip unless author.nil?
-    self.title = title.strip unless author.nil?
+    self.first_name = first_name.strip unless first_name.nil?
+    self.last_name = last_name.strip unless last_name.nil?
+    self.title = title.strip unless title.nil?
     self.isbn10 = isbn10.strip unless isbn10.nil?
     self.isbn13 = isbn13.strip unless isbn13.nil?
   end

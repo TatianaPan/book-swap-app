@@ -21,7 +21,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     user = users(:schmidt)
     sign_in user
 
-    book_params = { book: { title: 'Three Daughters of Eve', author: 'Elif Shafak',
+    book_params = { book: { title: 'Three Daughters of Eve', first_name: 'Elif',  last_name: 'Shafak',
                             release_date: '2020-12-05', status: 'available',
                             isbn13: '',
                             isbn10: '', description: '', borrower_id: nil } }
@@ -37,7 +37,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
     sign_in user
 
-    book_params = { book: { title: 'Life of Pi', author: 'Yann Martel',
+    book_params = { book: { title: 'Life of Pi', first_name: 'Yann', last_name: 'Martel',
                             release_date: Date.new(2016, 1, 1), status: 'available',
                             description: '' } }
 
@@ -81,7 +81,8 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     sign_in user
 
     patch user_book_url(book.user, book), params: { book: { title: 'Normal People',
-                                                            author: 'Sally Rooney',
+                                                            first_name: 'Sally',
+                                                            last_name: 'Rooney',
                                                             isbn10: '1524903152',
                                                             isbn13: '9781524763190',
                                                             release_date: '2017-02-01' } }

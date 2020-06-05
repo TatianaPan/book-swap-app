@@ -3,7 +3,7 @@ class BooksController < ApplicationController
   before_action :set_user
 
   def index
-    @books = @user.books.order(:author)
+    @books = @user.books.order(:last_name)
   end
 
   def show
@@ -54,7 +54,7 @@ class BooksController < ApplicationController
       params.require(:book).permit(:status, :borrower_id)
     else
       params.require(:book)
-            .permit(:title, :author, :description, :isbn13, :isbn10, :release_date, :status, :borrower_id)
+            .permit(:title, :first_name, :last_name, :description, :isbn13, :isbn10, :release_date, :status, :borrower_id)
     end
   end
 

@@ -35,7 +35,8 @@ class UsersTest < ApplicationSystemTestCase
     visit new_user_book_path(user)
 
     fill_in 'Title', with: 'Harry Potter and the Chamber of Secrets'
-    fill_in 'Author', with: 'J.K.Rowling'
+    fill_in 'First name', with: 'J.K.'
+    fill_in 'Last name', with: 'Rowling'
     fill_in 'ISBN 13', with: '9781408810545'
     select('2010', from: 'Published Date')
 

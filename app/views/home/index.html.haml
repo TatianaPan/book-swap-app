@@ -14,7 +14,7 @@
       %tbody
         - @all_books.each do |book|
           %tr
-            %td.p-3= book.author
+            %td.p-3= book.first_name + ' ' + book.last_name
             %td.p-3= link_to book.title, user_book_url(book.user, book)
             %td.p-3= link_to book.user.decorate.display_full_name, user_url(book.user)
             %td.p-3= book.status

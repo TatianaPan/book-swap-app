@@ -5,8 +5,10 @@ class HomeController < ApplicationController
     @search = params[:search]
     return @books = Book.all.order(:last_name) if @search.blank?
 
-    @author = @search[:author_title].strip
-    @books = Book.search_by_author_title(@author)
+    @search_query = @search[:author_title].strip
+    @books = Book.search_by_author_title(@search_query)
+
+    flash.now[:notice] = 'There is no such book in our catalogue.' if @books.empty?
   end
 
   private

@@ -5,7 +5,7 @@ class StrippableTest < ActiveSupport::TestCase
     class ExampleClass
       include Strippable
       attr_accessor :username, :email, :phone
-      STRIPPABLE_ATTRIBUTES = %w[username email phone]
+      STRIPPABLE_ATTRIBUTES = %w[username email phone].freeze
 
       def initizlize(username, email, phone)
         @username = username
@@ -24,5 +24,4 @@ class StrippableTest < ActiveSupport::TestCase
     assert_equal 'donald@yahoo.com', example.email
     assert_equal '', example.phone
   end
-
 end

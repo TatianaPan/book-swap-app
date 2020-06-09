@@ -13,6 +13,8 @@ blocks:
       env_vars:
         - name: HEROKU_REMOTE
           value: https://git.heroku.com/book-swap-app.git
+        - name: DOMAIN
+          value: book-swap-app.herokuapp.com
       jobs:
       - name: Push code
         commands:

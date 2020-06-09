@@ -3,7 +3,6 @@ class ReservationMailer < ApplicationMailer
     @book = book
     @borrower = book.borrower
     @owner = book.user
-    @email = book.borrower.email
 
     mail(to: "#{@owner.first_name} #{@owner.last_name} <#{@owner.email}>",
          subject: "Your book has been reserved by #{@borrower.first_name} #{@borrower.last_name}",

@@ -1,0 +1,10 @@
+%h2= "Hi #{@owner.first_name},"
+
+%p= "your book #{@book.title} has been reserved by #{@borrower.first_name} #{@borrower.last_name}."
+%p
+= surround "Please, contact him/her via ", " to arrange book handover." do
+  = mail_to "#{@borrower.email}", @borrower.email
+%hr
+%p
+= precede 'Yours ' do
+  = link_to 'BookSwapApp', 'https://book-swap-app.herokuapp.com/'

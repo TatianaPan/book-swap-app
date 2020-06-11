@@ -1,0 +1,15 @@
+obama:
+  first_name: 'Michelle'
+  last_name: 'Obama'
+
+rowling:
+  first_name: 'J.K.'
+  last_name: 'Rowling'
+
+tolkien:
+  first_name: 'J.R.R.'
+  last_name: 'Tolkien'
+
+lindgren_russian:
+  first_name: 'Астрид'
+  last_name: 'Линдгрен'

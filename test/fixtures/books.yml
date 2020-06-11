@@ -4,8 +4,7 @@ DEFAULTS: &DEFAULTS
 becoming:
   <<: *DEFAULTS
   title: 'Becoming'
-  first_name: 'Michelle'
-  last_name: 'Obama'
+  author: obama
   isbn10: '1524763152'
   isbn13: '9781524763152'
   release_date: 2018-02-01
@@ -15,8 +14,7 @@ becoming:
 harry_potter:
   <<: *DEFAULTS
   title: "Harry Potter and the Philosopher's Stone"
-  first_name: 'J.K.'
-  last_name: 'Rowling'
+  author: rowling
   isbn10: '1408810549'
   isbn13: '9781408810545'
   release_date: 2010-02-01
@@ -25,8 +23,7 @@ harry_potter:
 
 lord_of_rings_reserved:
   title: "The Lord of the Rings"
-  first_name: 'J.R.R.'
-  last_name: 'Tolkien'
+  author: tolkien
   isbn10: '1408810549'
   isbn13: '9781408810545'
   release_date: 1954-07-29
@@ -36,8 +33,7 @@ lord_of_rings_reserved:
 
 russian_book:
   title: 'Пеппи Длинныйчулок'
-  first_name: 'Астрид'
-  last_name: 'Линдгрен'
+  author: lindgren_russian
   release_date: 2010-02-01
   status: 'available'
   user: schmidt

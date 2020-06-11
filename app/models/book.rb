@@ -4,9 +4,10 @@ class Book < ApplicationRecord
   pg_search_scope :search_by_author_title, against: %i[first_name last_name title]
 
   STATUSES_REQUIRING_A_BORROWER = %w[reserved borrowed].freeze
-  STRIPPABLE_ATTRIBUTES = %w[first_name last_name title isbn10 isbn13].freeze
+  STRIPPABLE_ATTRIBUTES = %w[title isbn10 isbn13].freeze
 
   belongs_to :user
+  belongs_to :author
   belongs_to :borrower, class_name: 'User', inverse_of: :books_on_loan, optional: true
   enum status: { available: 'available', reserved: 'reserved', borrowed: 'borrowed' }
 
@@ -19,7 +20,7 @@ class Book < ApplicationRecord
   validates :isbn13, length: { is: 13 },
                      numericality: { only_integer: true, greater_than: 0 },
                      allow_blank: true
-  validates :title, :first_name, :last_name, :status, presence: true
+  validates :title, :status, presence: true
 
   def decorate
     @decorate ||= BookDecorator.new(self)

@@ -23,10 +23,6 @@ class Book < ApplicationRecord
                      allow_blank: true
   validates :title, :status, presence: true
 
-  def decorate
-    @decorate ||= BookDecorator.new(self)
-  end
-
   private
 
   def handle_status_and_borrower_correlation

@@ -7,9 +7,10 @@ class Book < ApplicationRecord
   STRIPPABLE_ATTRIBUTES = %w[title isbn10 isbn13].freeze
 
   belongs_to :user
-  belongs_to :author
+  belongs_to :author, dependent: :destroy
   belongs_to :borrower, class_name: 'User', inverse_of: :books_on_loan, optional: true
   enum status: { available: 'available', reserved: 'reserved', borrowed: 'borrowed' }
+  accepts_nested_attributes_for :author
 
   before_validation :strip_input_fields
   before_save :handle_status_and_borrower_correlation

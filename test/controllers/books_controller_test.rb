@@ -21,10 +21,10 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     user = users(:schmidt)
     sign_in user
 
-    book_params = { book: { title: 'Three Daughters of Eve', first_name: 'Elif', last_name: 'Shafak',
-                            release_date: '2020-12-05', status: 'available',
-                            isbn13: '',
-                            isbn10: '', description: '', borrower_id: nil } }
+    book_params = { book: { title: 'Three Daughters of Eve',
+                            release_date: '2020-12-05', status: 'available', isbn13: '',
+                            isbn10: '', description: '', borrower_id: nil,
+                            author_attributes: { first_name: 'Elif', last_name: 'Shafak' } } }
     assert_difference 'Book.count', 1 do
       post user_books_url(user), params: book_params
     end

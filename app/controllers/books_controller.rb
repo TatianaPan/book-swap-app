@@ -56,7 +56,7 @@ class BooksController < ApplicationController
     else
       params.require(:book)
             .permit(:title, :description, :isbn13, :isbn10,
-                    :release_date, :status, :borrower_id, author_attributes: [:first_name, :last_name])
+                    :release_date, :status, :borrower_id, author_attributes: %i[first_name last_name])
     end
   end
 

@@ -1,7 +1,7 @@
 class Book < ApplicationRecord
   include PgSearch::Model
   include Strippable
-  pg_search_scope :search_by_author_title, against: %i[first_name last_name title]
+  pg_search_scope :search_by_author_title, against: :title, associated_against: { author: %i[first_name last_name] }
 
   STATUSES_REQUIRING_A_BORROWER = %w[reserved borrowed].freeze
   STRIPPABLE_ATTRIBUTES = %w[title isbn10 isbn13].freeze
@@ -10,7 +10,7 @@ class Book < ApplicationRecord
   belongs_to :author, dependent: :destroy
   belongs_to :borrower, class_name: 'User', inverse_of: :books_on_loan, optional: true
   enum status: { available: 'available', reserved: 'reserved', borrowed: 'borrowed' }
-  accepts_nested_attributes_for :author
+  accepts_nested_attributes_for :author, update_only: true
 
   before_validation :strip_input_fields
   before_save :handle_status_and_borrower_correlation

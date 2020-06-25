@@ -65,11 +65,14 @@ class BookTest < ActiveSupport::TestCase
 
   test '.search_by_author_title' do
     user = users(:schmidt)
+    # search in English by author last name and book title
     assert_equal 1, Book.search_by_author_title('obama becoming ').count
+    # search in Russian by author last name
     assert_changes 'Book.search_by_author_title("линдгрен").count', from: 1, to: 2 do
       book = Book.new(title: 'Карлсон, который живет на крыше',
-                      first_name: 'Астрид',
-                      last_name: 'Линдгрен',
+                      author_attributes:
+                      { first_name: 'Астрид',
+                        last_name: 'Линдгрен' },
                       release_date: '1994',
                       status: 'available',
                       isbn10: '1546890654 ',

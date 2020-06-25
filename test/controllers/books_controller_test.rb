@@ -81,8 +81,9 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     sign_in user
 
     patch user_book_url(book.user, book), params: { book: { title: 'Normal People',
-                                                            first_name: 'Sally',
-                                                            last_name: 'Rooney',
+                                                            author_attributes:
+                                                            { first_name: 'Sally',
+                                                              last_name: 'Rooney' },
                                                             isbn10: '1524903152',
                                                             isbn13: '9781524763190',
                                                             release_date: '2017-02-01' } }
@@ -128,7 +129,9 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     user = users(:schmidt)
     sign_in user
     book = books(:harry_potter)
-    patch user_book_url(user, book), params: { book: { author_attributes: { first_name: 'Joanne' } } }
+    book_params = { book: { author_attributes: { first_name: 'Joanne' } } }
+
+    patch user_book_url(user, book), params: book_params
     assert_redirected_to user_book_url(book.user, book)
     assert_equal 'Joanne', book.reload.author.first_name
     assert_equal book.author.id, book.reload.author.id

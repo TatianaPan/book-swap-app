@@ -109,4 +109,28 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to root_path
   end
+
+  test 'POST/users/:user_id/books creates author record' do
+    user = users(:schmidt)
+    sign_in user
+
+    book_params = { book: { title: 'Three Daughters of Eve',
+                            release_date: '2020-12-05', status: 'available', isbn13: '',
+                            isbn10: '', description: '', borrower_id: nil,
+                            author_attributes: { first_name: 'Elif', last_name: 'Shafak' } } }
+    assert_difference 'Author.count', 1 do
+      post user_books_url(user), params: book_params
+    end
+    assert_redirected_to user_books_url
+  end
+
+  test 'PATCH/PUT/users/:user_id/books/:id should update associated author record' do
+    user = users(:schmidt)
+    sign_in user
+    book = books(:harry_potter)
+    patch user_book_url(user, book), params: { book: { author_attributes: { first_name: 'Joanne' } } }
+    assert_redirected_to user_book_url(book.user, book)
+    assert_equal 'Joanne', book.reload.author.first_name
+    assert_equal book.author.id, book.reload.author.id
+  end
 end

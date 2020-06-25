@@ -10,7 +10,7 @@ class BookTest < ActiveSupport::TestCase
     assert_includes book.errors.to_a, 'Isbn13 is not a number'
   end
 
-  test 'remove trailing whitespaces in author, title, isbn10 and isbn13 fields' do
+  test 'remove trailing whitespaces in title, isbn10 and isbn13 fields' do
     book = Book.create(title: ' Pippi Langstrumf ', release_date: '1994',
                        status: 'available', isbn10: '1546890654 ', isbn13: ' 9078612345123')
 

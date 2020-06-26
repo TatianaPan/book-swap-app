@@ -37,7 +37,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
     sign_in user
 
-    book_params = { book: { title: 'Life of Pi', first_name: 'Yann', last_name: 'Martel',
+    book_params = { book: { title: 'Life of Pi', author_attributes: { first_name: 'Yann', last_name: 'Martel' },
                             release_date: Date.new(2016, 1, 1), status: 'available',
                             description: '' } }
 
@@ -82,7 +82,8 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
     patch user_book_url(book.user, book), params: { book: { title: 'Normal People',
                                                             author_attributes:
-                                                            { first_name: 'Sally',
+                                                            { id: book.author_id,
+                                                              first_name: 'Sally',
                                                               last_name: 'Rooney' },
                                                             isbn10: '1524903152',
                                                             isbn13: '9781524763190',
@@ -129,7 +130,8 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     user = users(:schmidt)
     sign_in user
     book = books(:harry_potter)
-    book_params = { book: { author_attributes: { first_name: 'Joanne' } } }
+    author = book.author
+    book_params = { book: { author_attributes: { id: author.id, first_name: 'Joanne' } } }
 
     patch user_book_url(user, book), params: book_params
     assert_redirected_to user_book_url(book.user, book)

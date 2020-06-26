@@ -10,7 +10,7 @@ class Book < ApplicationRecord
   belongs_to :author, dependent: :destroy
   belongs_to :borrower, class_name: 'User', inverse_of: :books_on_loan, optional: true
   enum status: { available: 'available', reserved: 'reserved', borrowed: 'borrowed' }
-  accepts_nested_attributes_for :author, update_only: true
+  accepts_nested_attributes_for :author
 
   before_validation :strip_input_fields
   before_save :handle_status_and_borrower_correlation

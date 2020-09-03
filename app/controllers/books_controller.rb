@@ -3,7 +3,7 @@ class BooksController < ApplicationController
   before_action :set_user
 
   def index
-    @books = @user.books
+    @books = @user.books.includes(:author).order(:last_name).references(:author)
   end
 
   def show
@@ -12,6 +12,7 @@ class BooksController < ApplicationController
 
   def new
     @book = @user.books.new
+    @book.build_author
     authorize @book
   end
 
@@ -54,7 +55,8 @@ class BooksController < ApplicationController
       params.require(:book).permit(:status, :borrower_id)
     else
       params.require(:book)
-            .permit(:title, :author, :description, :isbn13, :isbn10, :release_date, :status, :borrower_id)
+            .permit(:title, :description, :isbn13, :isbn10,
+                    :release_date, :status, :borrower_id, author_attributes: %i[id first_name last_name])
     end
   end
 

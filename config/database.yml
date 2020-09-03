@@ -1,6 +1,9 @@
 default: &default
   adapter: postgresql
-  encoding: unicode
+  encoding: utf8
+  ctype: ru_RU.UTF-8
+  collation: ru_RU.UTF-8
+  template: template0
   pool: 5
   timeout: 5000
   url: <%= ENV['DATABASE_URL'] %>

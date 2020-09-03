@@ -1,6 +1,6 @@
 %h1= @book.title
 
-%h2= @book.author
+%h2= @book.author.first_name + ' ' + @book.author.last_name
 
 %p= @book.description
 

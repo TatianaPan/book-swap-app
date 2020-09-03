@@ -31,7 +31,9 @@
       %tbody
         - @my_reservations.each do |book|
           %tr
-            %td.p-3= link_to book.title, user_book_url(book.user, book)
+            %td.p-3
+              .py-1= link_to book.title, user_book_url(book.user, book)
+              .text-sm-left.text-secondary= book.author.first_name + ' ' + book.author.last_name
             %td.p-3= link_to book.user.decorate.display_full_name, user_url(book.user)
             %td.p-3
               .d-inline-flex.align-items-center
@@ -50,7 +52,9 @@
       %tbody
         - @books_reserved_or_taken_from_me.each do |book|
           %tr
-            %td.p-3= link_to book.title, user_book_url(book.user, book)
+            %td.p-3
+              .py-1= link_to book.title, user_book_url(book.user, book)
+              .text-sm-left.text-secondary= book.author.first_name + ' ' + book.author.last_name
             %td.p-3= link_to book.borrower.decorate.display_full_name, user_url(book.borrower)
             %td.p-3
               .d-inline-flex.align-items-center

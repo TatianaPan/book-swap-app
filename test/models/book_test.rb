@@ -2,7 +2,7 @@ require 'test_helper'
 
 class BookTest < ActiveSupport::TestCase
   test 'isbn10 and isbn13 should be a string of numbers' do
-    book = Book.new(title: 'Pippi Langstrumf', author: 'Atsrid Lindgren', release_date: '1994',
+    book = Book.new(title: 'Pippi Langstrumf', release_date: '1994',
                     status: 'available', isbn10: '1234arbnsP', isbn13: 'hgTb$12345123')
 
     book.validate
@@ -10,10 +10,11 @@ class BookTest < ActiveSupport::TestCase
     assert_includes book.errors.to_a, 'Isbn13 is not a number'
   end
 
-  test 'remove trailing whitespaces in isbn10 and isbn13 fields' do
-    book = Book.create(title: 'Pippi Langstrumf', author: 'Atsrid Lindgren', release_date: '1994',
+  test 'remove trailing whitespaces in title, isbn10 and isbn13 fields' do
+    book = Book.create(title: ' Pippi Langstrumf ', release_date: '1994',
                        status: 'available', isbn10: '1546890654 ', isbn13: ' 9078612345123')
 
+    assert_equal 'Pippi Langstrumf', book.title
     assert_equal '1546890654', book.isbn10
     assert_equal '9078612345123', book.isbn13
   end
@@ -59,6 +60,25 @@ class BookTest < ActiveSupport::TestCase
       assert_changes 'book.borrower_id', from: nil, to: user.id do
         book.update(status: 'reserved')
       end
+    end
+  end
+
+  test '.search_by_author_title' do
+    user = users(:schmidt)
+    # search in English by author last name and book title
+    assert_equal 1, Book.search_by_author_title('obama becoming ').count
+    # search in Russian by author last name
+    assert_changes 'Book.search_by_author_title("линдгрен").count', from: 1, to: 2 do
+      book = Book.new(title: 'Карлсон, который живет на крыше',
+                      author_attributes:
+                      { first_name: 'Астрид',
+                        last_name: 'Линдгрен' },
+                      release_date: '1994',
+                      status: 'available',
+                      isbn10: '1546890654 ',
+                      isbn13: ' 9078612345123',
+                      user: user)
+      book.save!
     end
   end
 end
